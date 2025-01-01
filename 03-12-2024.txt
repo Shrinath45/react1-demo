@@ -1,0 +1,400 @@
+Two Way Binding
+React Events
+Synthetic Event
+Event Handler
+Event Arguments
+Custom Arguments
+
+
+
+FAQ: What is Event Propagation? How to prevent propagation?
+Ans: It is a mechanism of propagating child event to its parent.
+    Some events defined fr child elements may trigger the parent events, which is known as Event Propagation.
+    You can prevent propagation by using event method "stopPropagation()".
+
+
+    Syntax:
+                function ChildEvent(e){
+                    e.stopPropagation();
+                }
+
+EX:
+data-binding.jsx
+
+import { Name } from "ajv";
+import { useEffect, useState } from "react"
+import moment from "moment";
+
+export function DataBinding(){
+     
+     
+      useEffect(()=>{
+
+          
+          
+      },[])
+
+      function NavbarClick(){
+        alert("Navbar Clicked");
+      }
+
+      function SearchClick(e){
+        e.stopPropagation();
+        alert('Search Clicked');
+      }
+
+     return(
+        <div className="container-fluid">
+          <nav onClick={NavbarClick} className="bg-dark text-white p-3 m-2">
+
+            <span className="h3 ">Navbar</span>
+            <button onClick={SearchClick} className="bi bi-search ms-4 btn btn-warning"></button>
+
+          </nav>
+        </div>
+     )
+}
+
+
+FAQ: How to stop default actions?
+Ans: By using event method "preventDefault()". It is available for generic elements of HTML.
+
+<form onSubmit={ handleSubmit }>
+
+</form>
+
+function handleSubmit(e){
+    e.preventDefault();
+}
+
+EX:
+data-Binding.jsx
+
+import { Name } from "ajv";
+import { useEffect, useState } from "react"
+import moment from "moment";
+
+export function DataBinding(){
+     
+     
+      useEffect(()=>{
+
+          
+          
+      },[])
+
+      function NavbarClick(){
+        alert("Navbar Clicked");
+      }
+
+      function SearchClick(e){
+        e.stopPropagation();
+        alert('Search Clicked');
+      }
+
+      function handleSubmit(e){
+        e.preventDefault();
+        alert('Form Submitted to Server');
+      }
+
+     return(
+        <div className="container-fluid">
+          <nav onClick={NavbarClick} className="bg-dark text-white p-3 m-2">
+
+            <span className="h3 ">Navbar</span>
+            <button onClick={SearchClick} className="bi bi-search ms-4 btn btn-warning"></button>
+
+          </nav>
+
+          <form onSubmit={handleSubmit}>
+            User Name: <input type="text" name="UserName" /> <button>Submit</button>
+          </form>
+        </div>
+     )
+}
+
+
+
+
+                    Ajax Requests in React
+
+
+- JavaScript can handle Ajax by using 
+        a) XMLHttpRequest
+        b) fetch()
+
+XMLHttpRequest:
+    - It is the native browser window object that handle Ajax calls in browser.
+    - It provides the properties and methods for handling Ajax calls in browser.
+
+    Syntax:
+            var http = new XMLHttpRequest();
+
+            http.open("method", "url", "async:boolean);
+            http.send();
+
+            http.onreadystatechange = function(){
+                if(http.readystate === 4){
+                    //responseText
+                }
+            }
+
+Issues with XMLHttpRequest:
+
+- It is implicitly synchronous.
+- It requires explicit async technique to enable.
+- It returns only HTML, XML, and Text as response.
+- It requires explicit parsing methods for other data types.
+- It is not good in handling errors.
+- CORS [Cross Origin Resource Sharing].
+- XSRF [Cross Site Request Forgery].
+- XSS [Cross Site Scripting Attacks].
+
+EX:
+1. Add new file into public folder by name "product.json"
+
+{
+    "title": "Apple iPhone 16 (white, 128 GB)",
+    "Price": 70000,
+    "rating": { "ratings":1500, "rate":4.6, "reviews":6300},
+    "offers": ["Bank Offers% Unlimited Cashback on Flipkart Axis Bank Credit Card T%C",
+                "Bank Offer 10% off up to $750 on HDFC Bank Credit Card EMI on 6 to 9 months tenure. Min. Txn Value: $7,500 T&C",
+                "Bank Offer Flat $450 off on HDFC Bank Credit Card EMI Txns on 3 months tenure, Min. Txn Value: $7,500 T&C"
+    ],
+    "image": "./public/iphone.webp"
+}
+
+
+data-binding.jsx
+
+
+import { useEffect, useState } from "react";
+import $ from "jquery";
+
+export function DataBinding(){
+     
+      const [product, setProduct] = useState({title:"", price:0, rating:{ratings:0, rate:0, reviews:0}, offers:[], image:''});
+      
+      function LoadData(){
+
+        var http = new XMLHttpRequest();
+
+        http.open("get", "product.json", true);
+        http.send();
+
+        http.onreadystatechange = function(){
+
+            if(http.readyState===4){
+                 setProduct(JSON.parse(http.responseText));
+            }
+
+        }
+
+      }
+    
+      useEffect(()=>{
+          LoadData();
+      },[])
+
+     return(
+        <div className="container-fluid">
+            <div className="mt-4 row">
+               <div className="col-4">
+                 <img width="100%" src={product.image} height="450" />
+               </div>
+               <div className="col-8">
+                    <div className="fs-4">{product.title}</div>
+                    <div className="mt-2">
+                       <span className="badge bg-success"> {product.rating.rate} <span className="bi bi-star-fill"></span> </span>
+                       <span className="text-secondary fw-bold"> {product.rating.ratings.toLocaleString()} ratings & {product.rating.reviews.toLocaleString()} reviews </span>
+                    </div>
+                    <div className="mt-4 fw-bold fs-1">
+                         {product.price}
+                    </div>
+                    <div className="mt-4">
+                        <h5>Available Offers</h5> 
+                        <ul className="list-unstyled">
+                          {
+                              product.offers.map(offer=> <li className="bi bi-tag-fill text-success my-3" key={offer}> <span className="text-secondary">{offer}</span> </li>)
+                          }
+                        </ul>
+                    </div>
+               </div>
+            </div>
+        </div>
+     )
+}
+
+
+
+Fetch Promise:
+
+- It is a promise based function.
+- It is a async by default.
+- It is implicitly handle the request and response phases.
+- It is better then XMLHttpRequest in handling errors.
+
+Syntax:
+        fetch("url").then(function(){
+            onSuccess
+        }).catch(function(){
+            on Failure
+        }).finally(function(){
+            always
+        });
+
+Issues with Fetch:
+
+- It is a "window" object method.
+- Window is actual DOM object not virtual DOM object.
+- Data is returned in binary format.
+- It requires explicit parsing techniques.
+- It requires explicit "throw" to catch the errror.
+- CORS
+- XSS
+- XSRF
+
+EX:
+data-binding.jsx
+
+import { useEffect, useState } from "react";
+
+
+export function DataBinding(){
+     
+      const [product, setProduct] = useState({title:"", price:0, rating:{ratings:0, rate:0, reviews:0}, offers:[], image:''});
+      
+      function LoadData(){
+
+            fetch("product.json")
+            .then(Response=> Response.json())
+            .then(product=> {
+                setProduct(product);
+            })
+
+      }
+    
+      useEffect(()=>{
+          LoadData();
+      },[])
+
+     return(
+        <div className="container-fluid">
+            <div className="mt-4 row">
+               <div className="col-4">
+                 <img width="100%" src={product.image} height="450" />
+               </div>
+               <div className="col-8">
+                    <div className="fs-4">{product.title}</div>
+                    <div className="mt-2">
+                       <span className="badge bg-success"> {product.rating.rate} <span className="bi bi-star-fill"></span> </span>
+                       <span className="text-secondary fw-bold"> {product.rating.ratings.toLocaleString()} ratings & {product.rating.reviews.toLocaleString()} reviews </span>
+                    </div>
+                    <div className="mt-4 fw-bold fs-1">
+                         {product.price}
+                    </div>
+                    <div className="mt-4">
+                        <h5>Available Offers</h5> 
+                        <ul className="list-unstyled">
+                          {
+                              product.offers.map(offer=> <li className="bi bi-tag-fill text-success my-3" key={offer}> <span className="text-secondary">{offer}</span> </li>)
+                          }
+                        </ul>
+                    </div>
+               </div>
+            </div>
+        </div>
+     )
+}
+
+
+
+JQuery Ajax Methods:
+
+- JQuery provides various Ajax Methods.
+- It is implicitly asynchronous.
+- It is good in handling errors.
+- It returns the data in native format of source.
+- It doesn't require explicit conversions.
+
+Syntax:
+
+        $.ajax({
+            method: "get | post | put | delete",
+            url: "",
+            data: anyType,
+            success: function(){},
+            error: function(){}
+        })
+
+
+Issues with JQuery:
+
+- CORS
+- XSS
+- XSRF
+- Actual DOM methods
+
+EX:
+
+1. Install JQuery for project
+
+        > npm install jquery --save
+
+2. Import JQuery core library into component
+
+        import $ from "jquery";
+
+3. data-binding.jsx
+
+import { useEffect, useState } from "react";
+import $ from "jquery";
+
+export function DataBinding(){
+     
+      const [product, setProduct] = useState({title:"", price:0, rating:{ratings:0, rate:0, reviews:0}, offers:[], image:''});
+      
+      function LoadData(){
+
+           $.ajax({
+            method: "get",
+            url: "product.json",
+            success: (product)=>{
+              setProduct(product)
+            }
+           })
+
+      }
+    
+      useEffect(()=>{
+          LoadData();
+      },[])
+
+     return(
+        <div className="container-fluid">
+            <div className="mt-4 row">
+               <div className="col-4">
+                 <img width="100%" src={product.image} height="450" />
+               </div>
+               <div className="col-8">
+                    <div className="fs-4">{product.title}</div>
+                    <div className="mt-2">
+                       <span className="badge bg-success"> {product.rating.rate} <span className="bi bi-star-fill"></span> </span>
+                       <span className="text-secondary fw-bold"> {product.rating.ratings.toLocaleString()} ratings & {product.rating.reviews.toLocaleString()} reviews </span>
+                    </div>
+                    <div className="mt-4 fw-bold fs-1">
+                         {product.price}
+                    </div>
+                    <div className="mt-4">
+                        <h5>Available Offers</h5> 
+                        <ul className="list-unstyled">
+                          {
+                              product.offers.map(offer=> <li className="bi bi-tag-fill text-success my-3" key={offer}> <span className="text-secondary">{offer}</span> </li>)
+                          }
+                        </ul>
+                    </div>
+               </div>
+            </div>
+        </div>
+     )
+}

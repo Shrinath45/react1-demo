@@ -1,0 +1,87 @@
+Data Binding
+- One Way Binding
+- Primitive
+- Non Primitive
+- Date [moment, luxon, dayjs]
+
+
+
+                    Event Binding in React
+
+
+1. What is Event?
+
+- Event is a message sent by sender to its subscriber in order to notify changes.
+- Event uses "Delegate" mechanism. [function pointer]
+- Event follows "Observer" pattern.
+- JavaScript events are derived from "Browser Window" object.
+- React can't use JavaScript Browser events.
+- React library provides "SyntheticEvents" base class, which provides access to all events in virtual DOM.
+
+
+2. What are SyntheticEvents?
+
+- Synthetic Events are virtual DOM events that map to actual DOM.
+- It is base for all events in React.
+
+    React => onClick => Browser => onClick
+
+
+3. Synthetic Event Types
+
+    - MouseEvents
+    - KeyboardEvents
+    - ButtonEvents
+    - TimerEvents
+    - TouchEvents
+    - FormEvents
+    - Element State Events
+    - Clipboard Events
+        etc...
+
+Note: React can manage two-way data binding only with "onChange" event.
+
+4. Event Handler
+
+- It configures event and function for element.
+
+    <button onClick={handleClick}> Submit </button>
+
+- Event handler in React provides "event" argument as default argument, which contains information about event and element.
+
+    event.clientX
+    event.clientY
+    event.keyCode
+    event.altKey
+    event.which
+    event.target.index
+    event.target.value
+    event.target.className
+
+    Syntax:
+            <button id="btnInsert" value="Insert" className="btn btn-primary" onClick={InsertClick}>
+                Insert
+            </button>
+
+
+        function InsertClick(){
+            e.target.id,
+            e.target.value,
+            e.target.className,
+            e.clientX,
+            e.clientY,
+            e.altKey,
+            e.keyCode etc
+        }
+
+5. Custom Arguments in React Events
+
+- Synthetic Event handler provides only default event arguments implicitly.
+- To configure custom arguments you have to return a function on specific event.
+
+    Syntax:
+            <button onClick={ (e)=> InsertClick(e, 'str', 10, true)}>Click Me</button>
+
+            function InsertClick(e, msg, num, bool){
+                
+            }

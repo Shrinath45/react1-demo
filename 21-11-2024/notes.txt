@@ -1,0 +1,245 @@
+iInstalling React Library for Web Application:
+
+    >npm install react    => It is a core library
+    >npm install react-dom  => It is a Virtual Dom Library
+    >npm install @babel/standalone   => It is a Compiler
+
+
+- Library files are copied into "node-modules"
+
+                                        JavaScript Module Systems
+                                        - Common JS
+                                        - EJS
+                                        - UMD
+                                        - AMD
+
+- Your Project created with Node is default configured with UMD [Universal Module Distribution] System.
+- Hence you have to link files from UMD.
+
+<head>
+    <script src="../node_modules/react/umd/react.development.js"></script>
+    <script src="../node_modules/react-dom/umd/react-dom.development.js"></script>
+    <script src="..node_modules/@babel/standalone/babel.js"></script>
+</head>
+
+
+
+                **********React Components***********
+
+
+- React is Component based.
+- A component comprises of 
+    a) Design
+    b) Styles
+    c) Functionality
+
+- Design is created with HTML
+- Styles are defined with CSS
+- Functionality is configure using JavaScript pr TypeScript
+- Component enables
+    a) Reusability
+    b) Extensibility
+    c) Maintainability
+    d) Testability
+
+
+
+Creating a Component
+
+- Component can be created by using JavaScript.
+    a) Function
+    b) Class
+
+Syntax:
+
+    function Component()
+    {
+
+    }
+
+    class Component
+    {
+
+    }
+
+- Classes are still supported in React but not recommended in modern code.
+
+
+Note: JavaScript function topics required for React Developer
+
+        - Function Declaration
+        - Function Expression
+        - Function Signature
+        - Function Parameters
+        - Function Definition
+        - Rest Parameters
+        - Spread Operator
+        - Function with Return
+        - Function Closure
+        - Function Generator
+        - Function Recursion
+        - Function Callback
+        - Function Promises
+        - Arrow Function
+        - Async Function
+        - Anonymous Function
+        - IIFE[Immediately Invoking Function Expression] Pattern 
+
+
+
+Component Rules:
+
+1. Component function can't be void.[that must be it return something]
+2. It must return a function with JSX as element.[JavaScript Extension]
+3. JSX uses HTML elements, but configured with a set of rules.
+
+            JSX Rules:
+
+            a) Component function must return only one fragment as JSX.
+
+                    (
+                        <div>
+                            <h3>Welcome</h3>      => valid
+                            <h2>Welcome</h2>
+                        </div>       
+                    )
+                    (
+                        <h3>Welcome</h3>      => Invalid
+                        <h2>Welcome</h2>
+                    )
+
+            b) JSX can't have void elements defined with only start token.
+            c) JSX elements must have end token.
+
+                    <img>   => Invalid
+                    <img></img>  => valid
+                    <img />     => valid
+                    <input>     => Invalid
+                    <input />   => valid
+
+            d) JSX can't have attributes, you have to configure only properties.
+
+                        <img class="img-fluid">  => Invalid
+                        <img className="img-fluid"> => valid
+
+                        class   : attribute name
+                        className   : property name
+
+
+
+        FAQ: What is difference between attribute & Property?
+        Ans: 
+            Attribute is immutable
+            Property is mutable
+
+EX:
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <style>
+        .bg-style{
+            background-color: yellow;
+            color: red;
+            padding: 10px;
+            font-size: 30px;
+        }
+    </style>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+
+
+        function NavBar(){
+            return (
+                <div className="bg-style">
+                    <h2>Welcome</h2>
+                    <p>Shrinath</p>
+
+                    <input type="text" name="" id="" />
+                </div>
+            )
+        }
+
+
+        ReactDOM.render(<NavBar />, document.getElementById("root"));
+    </script>
+</head>
+<body>
+    <noscript>Please Enable JavaScript on your browser.</noscript>
+
+    <div id="root">
+        
+    </div>
+</body>
+</html>
+
+
+
+EX:
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <style>
+        .bg-style{
+            background-color: black;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            font-size: 30px;
+            margin-bottom: 20px;
+
+        }
+        nav span{
+            margin-right: 20px;
+        }
+    </style>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+
+
+        function NavBar(){
+            return (
+                <div >
+                    <nav className="bg-style">
+                        <span>Shopping</span>
+                        <div>
+                            <span>Home</span>
+                            <span>Shop</span>
+                            <span>Blog</span>
+                            <span>Pages</span>
+                        </div>
+                        <div>
+                            <span>Signin</span>
+                            <span>Signin</span>
+                        </div>
+                    </nav>
+                </div>
+            )
+        }
+
+
+        ReactDOM.render(<div> <NavBar /> <NavBar /> </div>, document.getElementById("root"));
+    </script>
+</head>
+<body>
+    <noscript>Please Enable JavaScript on your browser.</noscript>
+
+    <div id="root">
+        
+    </div>
+</body>
+</html>
+
+
+
+            

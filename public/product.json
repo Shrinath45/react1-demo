@@ -1,0 +1,10 @@
+{
+    "title": "Apple iPhone 16 (white, 128 GB)",
+    "Price": 70000,
+    "rating": { "ratings":1500, "rate":4.6, "reviews":6300},
+    "offers": ["Bank Offers% Unlimited Cashback on Flipkart Axis Bank Credit Card T%C",
+                "Bank Offer 10% off up to $750 on HDFC Bank Credit Card EMI on 6 to 9 months tenure. Min. Txn Value: $7,500 T&C",
+                "Bank Offer Flat $450 off on HDFC Bank Credit Card EMI Txns on 3 months tenure, Min. Txn Value: $7,500 T&C"
+                ],
+    "image": "./iphone.webp"
+}

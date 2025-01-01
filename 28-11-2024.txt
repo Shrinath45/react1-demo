@@ -1,0 +1,300 @@
+						Non Primitive Types
+1. Array
+- Array configuration and methods are same as in JavaScript.
+- Reading and presenting elements requires iterator methods like
+	a) map()
+	b) forEach()
+	c) find()
+	d) filter()
+- React requires a unique key for every repeating element in JSX.
+
+Syntax:
+	    const  [values] = useState([10, 20, 30]);
+
+	    <ul>
+	       {
+		  values.map(value => <li key={value}> {value} </li>)
+		}
+	   </ul>
+
+Ex:
+data-binding.jsx
+
+import { useEffect, useState } from "react"
+
+export function DataBinding(){
+     
+      const [categories, setCategories] = useState(['All', 'Electronics', 'Footwear']);
+     
+      useEffect(()=>{
+
+            
+          
+      },[])
+
+     return(
+        <div className="container-fluid">
+            <header>
+                <nav className="btn-group">
+                    {
+                        categories.map(category => <button key={category} className="btn btn-danger">{category}</button>)
+                    }
+                </nav>
+            </header>
+            <h2>Categories</h2>
+            <ul>
+                {
+                    categories.map(category=> <li key={category}>{category}</li>)
+                }
+            </ul>
+            <h2>Select Category</h2>
+            <select>
+                {
+                    categories.map((category, index)=> <option key={index} value={category}>{category}</option>)
+                }
+            </select>
+            <h2>Select Categories</h2>
+            <ul className="list-unstyled">
+                {
+                    categories.map(category=> <li key={category}><input type="checkbox" value={category}/> <label>{category}</label> </li> )
+                }
+            </ul>
+        </div>
+     )
+}
+
+Ex:
+import { useEffect, useState } from "react"
+
+export function DataBinding(){
+     
+      const [categories, setCategories] = useState([]);
+     
+      useEffect(()=>{
+
+            setCategories(['All', 'Electronics', 'Footwear']);
+          
+          
+      },[])
+
+     return(
+        <div className="container-fluid">
+            <header>
+                <nav className="btn-group">
+                    {
+                        categories.map(category => <button key={category} className="btn btn-danger">{category}</button>)
+                    }
+                </nav>
+            </header>
+            <h2>Categories</h2>
+            <ul>
+                {
+                    categories.map(category=> <li key={category}>{category}</li>)
+                }
+            </ul>
+            <h2>Select Category</h2>
+            <select>
+                {
+                    categories.map((category, index)=> <option key={index} value={category}>{category}</option>)
+                }
+            </select>
+            <h2>Select Categories</h2>
+            <ul className="list-unstyled">
+                {
+                    categories.map(category=> <li key={category}><input type="checkbox" value={category}/> <label>{category}</label> </li> )
+                }
+            </ul>
+        </div>
+     )
+}
+
+2. Object
+- It is a key-value collection.
+- All object manipulations are same as in JavaScript.
+- The values are accessed with reference of keys.
+
+Syntax:
+		const  [obj ]  = useState({key:value});
+
+		<p> { obj.key } </p>
+
+- You can read all keys by using  "Object.keys()" method.
+
+Ex:
+data-binding.jsx
+
+import { useEffect, useState } from "react"
+
+export function DataBinding(){
+     
+      const [product, setProduct] = useState({})
+     
+      useEffect(()=>{
+
+           setProduct({Name:'Samsung TV', Price:56000});
+          
+      },[])
+
+     return(
+        <div className="container-fluid">
+            <h2>Product Details</h2>
+            <dl>
+                <dt>Name</dt>
+                <dd>{product.Name}</dd>
+            </dl>
+            <h2>Keys</h2>
+            <ul>
+                {
+                    Object.keys(product).map(key=><li key={key}>{key} : {product[key]} </li>)
+                }
+            </ul>
+        </div>
+     )
+}
+
+Ex: Array of Objects
+
+data-binding.jsx
+
+import { useEffect, useState } from "react"
+
+export function DataBinding(){
+     
+      const [products] = useState([{Name:'TV', Price:45000}, {Name:'Mobile', Price:12000}]);
+     
+      useEffect(()=>{
+
+           
+          
+      },[])
+
+     return(
+        <div className="container-fluid">
+           <h2>Products Table</h2>
+           <table className="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {
+                        products.map(product => <tr key={product.Name}> <td>{product.Name}</td> <td>{product.Price}</td> </tr>)
+                    }
+                </tbody>
+           </table>
+        </div>
+     )
+}
+
+Ex: Nested Iterations 
+data-binding.jsx
+
+import { useEffect, useState } from "react"
+
+export function DataBinding(){
+     
+      const [items] = useState(
+        [
+            {Category:'Electronics', Products:['TV', 'Mobile']},
+            {Category: 'Footwear', Products: ['Casuals', 'Boots', 'Sneakers']}
+        ]
+       )
+      
+      useEffect(()=>{
+
+           
+          
+      },[])
+
+     return(
+        <div className="container-fluid">
+           <h2>Menu</h2>
+           <ol>
+               {
+                  items.map(item=> 
+                    <li key={item}>{item.Category}
+                        <ul>
+                            {
+                                item.Products.map(product=><li key={product}>{product}</li>)
+                            }
+                        </ul>
+                    </li> 
+                  )
+               }
+           </ol>
+           <h2>Menu</h2>
+           <select>
+               {
+                  items.map(item=>
+                     <optgroup label={item.Category} key={item}>
+                         {
+                            item.Products.map(product=><option key={product}>{product}</option>)
+                         }
+                     </optgroup>
+
+                  )
+               }
+           </select>
+        </div>
+     )
+}
+
+						    
+                            
+                            
+                            
+                            Date Type
+- JavaScript date is configured by using "Date()" constructor. 
+- JS date and time methods are same in React.
+	a) getter methods
+	b) setter methods
+- Date and Time methods are JavaScript have preset formats.
+- You can't customize date and time formats.
+- React requires support of 3rd party libraries to handle date and time values.
+- The popular 3rd party date libraries are:
+		a) moment
+		b) dayjs
+		c) luxon
+
+Ex:
+1. Install moment 
+
+		>npm  install moment --save
+
+2. Import moment into component
+
+	import  moment  from  "moment";
+
+3. Input date into moment and apply a format
+
+	 {   moment(yourDateValue).format('Format_of_date')  }
+
+		DD		2 digits date number
+		dddd	full weekday name
+		ddd		short weekday name
+		MM		month number
+		MMM	short month format
+		MMMM	long month format
+		YY		short year
+		YYYY	full year
+
+Ex:
+import { useEffect, useState } from "react";
+import moment from "moment";
+
+export function DataBinding(){
+     
+      const [mfd] = useState(new Date());
+      
+      useEffect(()=>{
+          
+      },[])
+
+     return(
+        <div className="container-fluid">
+             <h2>{moment(mfd).format('DD dddd, MMMM YYYY')}</h2>
+        </div>
+     )
+}

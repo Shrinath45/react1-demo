@@ -1,0 +1,130 @@
+                                React 18x
+
+SetUp Environment for React:
+
+1. Install Node JS on your PC
+    - Node JS is a JavaScript runtime used to build Web App, CLI Tools, Servers, & Scripts.
+    - Node JS provides a package manager [npm].
+
+                https://nodejs.org/en
+
+2. Install Visual Studio Code Editor.
+3. Install following extensions for VS Code
+        
+        - Live Server
+        - VS Code Icons
+        - IntelliSense for CSS class names in HTML
+
+
+
+            **********React in Existing Web Application: ************
+
+1. Create a new folder for application
+        E:\UI Full Stack with React JS\React\React web app
+
+2. Open folder in VS Code and SetUp the file system
+        react-web-app
+        |_package.json
+        |_README.md
+        |_public
+        |_src
+
+    TO generate package.json, open terminal and run the command
+
+            >npm init -y
+    
+    You have to add other file manually.
+
+    Public comprises of all static resources like image, html, docs, video etc
+    SRC comprises of all dynamic resources like .css, .scss, .ts, .js, etc..
+
+3. Add following files into "public" folder
+
+        - index.html
+        - home.html
+
+Note: 
+    React up to 17x Versions support the approach of integrating react in Existing web application
+
+    React 18x version is a complete re-write of React, which changes the approach of using react in web application.
+        
+        https://legacy.reactjs.org/    up to 17x version
+        https://react.dev/              from 18x versions
+
+4. To use React in any HTML page you can link CDN or download library using NPM.
+
+5. React requires 3 basic libraries 
+    a) react
+    b) react-dom
+    c) babel
+
+    - "React" is a core library for all basic React functions.
+    - "React-DOM" is the library for handling virtual DOM.
+    - "Babel" is the compiler for JavaScript in React.
+
+    CDN Links:
+
+    https://legacy.reactjs.org/docs/cdn-links.html         => React CDN
+
+    https://babeljs.io/docs/babel-standalone             => babel CDN
+
+
+6. Add following elements into HTML page.
+
+        <noscript> </noscript>
+        <div id="root"> </div>
+    
+    - NoScript is used to check the status of JavaScript in Browser. [enabled / disabled]
+    - DIV with "root" ID is to render the virtual DOM
+
+7. Add <script></script> container with type as "text/babel" or "text/jsx"
+
+        <script type="text/babel>
+
+        </script>
+
+8. Virtual DOM is created and rendered by using "ReactDOM.render()" method.
+
+    ReactDOM.render("Component to render", target_element_in_DOM);
+
+EX:
+index.html
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index</title>
+</head>
+<body>
+    <h1>Web Application</h1>
+    <p>It is a traditional web application</p>
+    <p>React Components are in <a href="./home.html">Home</a> Page</p>
+</body>
+</html>
+
+home.html
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+
+        ReactDOM.render("Welcome To React JS", document.getElementById("root"));
+    </script>
+</head>
+<body>
+    <noscript>Please Enable JavaScript on your browser.</noscript>
+
+    <div id="root">
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+
+    <style>
+        .bg-style{
+            background-color: black;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            font-size: 30px;
+            margin-bottom: 20px;
+
+        }
+        nav span{
+            margin-right: 20px;
+        }
+    </style>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+
+
+        function NavBar(){
+            return (
+                <div >
+                    <nav className="bg-style">
+                        <span>Shopping</span>
+                        <div>
+                            <span>Home</span>
+                            <span>Shop</span>
+                            <span>Blog</span>
+                            <span>Pages</span>
+                        </div>
+                        <div>
+                            <span>Signin</span>
+                            <span>Signin</span>
+                        </div>
+                    </nav>
+                </div>
+            )
+        }
+
+
+        ReactDOM.render(<div> <NavBar /> <NavBar /> </div>, document.getElementById("root"));
+    </script>
+</head>
+<body>
+    <noscript>Please Enable JavaScript on your browser.</noscript>
+
+    <div id="root">
+        
+    </div>
+</body>
+</html>

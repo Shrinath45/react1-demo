@@ -1,0 +1,58 @@
+                        React 18x
+                    
+
+- HTML, CSS, JS 
+
+
+1. What is React?
+- React is JavaScript Library used for Web and Native UI.
+
+2. How React is different from Angular?
+- React is a library.
+- Angular is a Framework.
+
+3. Where we use Angular & React?
+- If your project using various frameworks in backend to control application flow and requires a good UI then better to use "React".
+- If your project is using limited frameworks in backend and want complete control from front-end then better to use "Angular".
+
+
+4. Why we need Angular & React like technologies in Web & Native Development?
+- Angular & React are required to handle challenges in modern web Development.
+- The challenges in modern web:
+    a) Unified UX
+        - Application should not optimize.[compress]
+        - User must have same experience across devices.
+        - Mobile users must get access to everything.
+
+    b) Fluid UX
+        - User stays on one page and gets access to everything from the page.
+        - New details are updated into page without reloading the complete page.
+
+    c) Loosely Coupled & Extensible
+        - It allows to build new features outside application scope and integrate into application.
+        - New features are added into application without catastrophic failures.
+
+    What is solution?
+    - Better to build "SPA & PWA".[Single Page Application & Progressive Web Application]
+    - Single page application.
+    - Progressive Web Application.
+
+    How to build SPA?
+    - You can use JavaScript & jQuery to build SPA.
+    
+    What are the issues with JavaScript & jQuery?
+    - They require a lot of DOM Manipulations
+    - Lot of DOM methods.
+    - DOM interactions using methods is slow.
+    - Application is heavy.
+    - Requires lot of explicit AJAX.
+
+    What is solution?
+    - Better go with React, Angular, Vue, Knockout JS, Backbone JS, Ember JS...
+    
+
+- Web Started in early 1990's by Tim Berners Lee
+- Angular Started in 2014
+- React Started in 2013
+
+

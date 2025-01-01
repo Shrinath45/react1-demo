@@ -1,0 +1,86 @@
+            Creating React Application
+                [React 18x]
+
+
+- The popular bundling & configuration tools used for creating React applications are 
+
+    a) Webpack
+    b) Parcel
+    c) Vite
+
+- This tools can create and configure application for Development, Quality, and Production.
+
+- NPM uses "Webpack" as bundler to create and configure React application.
+
+    1. Open any location of your PC in CMD
+        E:\>
+    
+    2. Run the Command
+        E:\> npx create-react-app app-name
+        E:\> npx create-react-app react-demo
+
+    3. The default react application uses JavaScript as language. [JSX]
+        You can create react application using typescript as language.
+
+            E:\> npx create-react-app app-name --template typescript
+
+    4. React application file system
+
+            E:\>react1-demo
+            |
+            |_node_modules
+            |_public
+            |_src
+            |_package.json
+            |_package.lock.json
+            |_README.md
+            |_.gitignore
+    
+    5. React Application High Level Design & Flow
+
+        Rendering Virtual DOM
+
+        1. Up to version 17x
+
+            ReactDOM.render(<component />, document.getElementById("root"));
+
+        2. From 18x version
+
+            const root = createRoot(document.getElementById("root"));
+            root.render(<component />);         // default component is <App />
+
+        3. To Start react application run the Command
+            
+            > npm Start
+            - It starts the development server and host your app on 3000 port
+
+        4. Open any browser and request
+
+            http://localhost:3000
+                    (or)
+            http://127.0.0.1:3000
+
+EX:
+1. Add a new file into src by name
+        "login.js"
+
+2. Create a component
+
+    export function Login(){
+        return(<div></div>)
+    }
+
+3. Import into App.js
+
+    import { Login } from './login'
+
+    <Login />
+
+
+
+
+
+    FAQ: What is Backward Compatibility?
+    Ans: Backward Compatibility means it supports older version syntax just like react 18x supports react 17x syntax.
+
+    Note: Whenever an user request from browser then the DomContentLoaded() Event Occurs.

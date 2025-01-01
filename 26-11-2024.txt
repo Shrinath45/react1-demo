@@ -1,0 +1,164 @@
+FAQ: What is Bootstrapping?
+Ans: Bootstrapping is the process of converting static DOM [DOM Without any interactions] into dynamic DOM [DOM that allow the interactions].
+
+
+
+                    Adding Components
+
+1. Component can be function or class defined in an external file with extension ".js or .jsx".
+
+2. Component file is considered as a "Module" hence you have to mark the Component function or class as "export" or "export default".
+
+        login.jsx
+
+        export function Login(){
+            return(<JSX></JSX>);
+        }
+                
+                (or)
+        
+        const Login = function(){
+            return(<JSX></JSX>);
+        }
+        export default Login;
+            (or)
+
+        const Login = () => (<JSX></JSX>);
+        export default Login;
+
+3. Import the Component Library in order to use in any another Component.
+
+        import { Login } from './login';
+        import Login from "./login";        // when marked as default
+
+
+Note: Make sure that the Component files are in "src" folder.
+
+4. Every Component comprises of 3 files
+
+    a) .jsx             comprises of markup & Logic
+    b) .css/ .scss      comprises of styles [Make sure that don't use the type selector(h2, div, nav), either use class or id selector].
+    c) .test.js         comprises of test cases [ Purpose is AS === TOBE ]
+        .spec.js
+
+Note: Avoid using "Type Selector" in CSS file of component. It spans the effect to elements in other components.
+
+5. CSS files are linked to component by using "import".
+
+        import "./login.css";
+
+EX:
+1. home.jsx
+
+ import './home.css';
+
+
+export function Home(){
+    return(
+        <div>
+            <h2 className="box">React Home</h2>
+        </div>
+    )
+}
+
+2. home.css
+
+.box{
+    border: 1px solid grey;
+    padding: 20px;
+    text-align: center;
+}
+
+                
+
+Setup Bootstrap for Styles and Components:
+
+1. Install bootstrap for project
+
+    > npm install bootstrap bootstrap-icons --save
+
+2. Import bootstrap files into "index.js"   
+
+    import '../node_modules/bootstrap/dist/css/bootstrap.css';
+    import '../node_modules/bootstrap-icons/font/bootstrap-icons.css';
+    import '../node_modules/bootstrap/dist/js/bootstrap.bundle.js';
+
+EX:
+home.jsx
+
+import './home.css';
+
+
+export function Home(){
+    return(
+        <div className="container-fluid">
+            <h2 className="box bg-warning"> <span className="bi bi-house-door-fill"></span>React Home</h2>
+            <div className="alert alert-dismissible alert-success w-25 m-3">
+                <h4>Welcome to React 18</h4>
+                <p>JavaScript library for building Native and Web UI. </p>
+                <button className='btn btn-success' data-bs-dismiss="alert">Ok</button>
+            </div>
+        </div>
+    )
+}
+
+
+
+                    Data Binding in React
+
+
+- Data binding is a technique of accessing data from source and updating into UI, It identifies changes in UI and updates back into source.
+
+- Data binding is categorized into 2 types:
+
+    a) One Way binding
+    b) Two Way Binding
+
+- One Way binding allow to access data from source and bind to UI elements.
+- It will not allow changes in data from UI.
+- It secured and fast in rendering.
+- JavaScript and JQuery uses lot of DOM methods for one way binding.
+- React uses a simple "Data Binding Expression => { }" to bind data with UI elements.
+
+        var user = "John";
+
+        <p>Hello ! {user}</p>
+        <input type="text" value={user} />
+
+EX:
+data-binding.jsx
+
+
+
+export function DataBinding(){
+
+    var user = "Shrinath";
+    var city = "Nanded"
+    return(
+        <div className="container-fluid">
+            <h2>Hello ! {user}</h2>
+            <input type="text" value={user} />
+            <select value={city}>
+                <option value="-1">Select City</option>
+                <option value="Mumbai">Mumbai</option>
+                <option value="Pune">Pune</option>
+                <option value="Nanded">Nanded</option>
+                <option value="Nashik">Nashik</option>
+            </select>
+        </div>
+    )
+}
+
+
+Note: Do not use variables for handling dynamic data in React Components.
+    Variables are immutable.
+
+    You have to maintain a state for storing data. State is mutable
+    State in React can be configured by using various hooks
+
+            a) useState()
+            b) useContext()
+            c) useMemo()
+            d) useCallback()
+            e) useReducer()
+            f) useRef()

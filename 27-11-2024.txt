@@ -1,0 +1,243 @@
+FAQ: Why we need state?
+Ans: Http is Stateless. State is required to retain data across requests.
+
+FAQ: How state is configured for component?
+Ans: By using various hooks
+        a) useState()
+        b) useContext()
+        c) useMemo()
+        d) useCallback()
+        e) useReducer()
+        f) useRef()
+
+
+
+            useState()
+
+- It is a Hook used to maintain local state.
+- You can store values for component and use across requests.
+
+Syntax:
+        const [refName] = useState();
+        const [refName] = useState(initialValue);
+        const [getter, setter] = useState(initialValue);
+
+FAQ's:
+
+1. Why you are using "const" to declare state? Why not var & let?
+A. It is mandatory to initialize state for every component.
+    It is not recommended to assign state.
+    Hence it is always recommended to declare and initialize state using "const".
+
+
+2. How you will use a setter to assign new value into state, if you configure using "const"?
+A. setter will not assign value into state, it re-initializes value into state.
+
+    Syntax:
+        const[getPrice, setPrice] = useState(4000);
+
+        setPrice = 5000     // invalid
+        setPrice(5000);     // valid
+
+        <p>Price: {getPrice}</p>
+
+3. What type of data can be stored in state?
+A. State is a memory allocated for component and it can handle any JavaScript type 
+    
+    a) Primitive [Numbers, Booleans, String, NULL, Undefined]
+    b) Non Primitive [array, objects, map]
+
+    Primitive               Non Primitive
+
+    a) Number               a) Array
+    b) String               b) Object
+    c) Booleans             c) Map
+    d) NULL
+    e) Undefined
+    f) bigint
+    g) symbol
+
+
+4. Can we set state while creating component?
+A. No. You can set state only after mounting component or while mounting component.
+
+Note: Every component have various phases
+        a) Creating 
+        b) Mounting
+        c) Updating
+        d) Unmount
+
+5. How to define mount phase for component?
+A. Component mount and unmount can be defined using the react hook "useEffect()"
+
+        Syntax:
+                useEffect( ()=>{
+
+
+                },[dependency])
+
+
+6. What is dependency in useEffect() hook?
+A. Dependency is used to specify when a component should mount again.
+    Every Component mounts only once per requests.
+    Dependency can specify when to mount again.
+    You can configure multiple dependencies for a component.
+
+EX:
+data-binding.jsx
+
+import { useEffect, useState } from "react"
+
+
+export function DataBinding(){
+
+    const [userName, setUserName] = useState('Shrinath');
+    
+    useEffect(()=>{
+
+        setUserName("Shri");
+        
+    },[])
+    return(
+        <div className="container-fluid">
+
+            <h2>Hello ! {userName}</h2>
+        </div>
+    )
+}
+
+
+                
+                
+                Handling Primitive Types:
+
+1. String
+
+- String is configured by using
+    a) double quote     ""
+    b) single quote      ''
+    c) backtick         ``
+
+- Backtick allows embedded expression ${}
+- All string methods are same as in JavaScript.
+
+        a) String Formatting Methods
+        b) String Manipulation Methods
+
+
+
+EX:
+
+import { useEffect, useState } from "react"
+
+
+export function DataBinding(){
+
+    const [msg, setMsg] = useState('Shrinath');
+    
+    useEffect(()=>{
+
+        setMsg("Welcome to React.");
+
+    },[])
+    return(
+        <div className="container-fluid">
+
+            <h2>{msg.toUpperCase()}</h2>
+        </div>
+    )
+}
+
+
+2. Number
+
+- Number type is same as in JavaScript.
+- Number can be 
+    a) signed
+    b) unsigned
+    c) float
+    d) double
+    e) decimal
+    f) bigint           999999999n
+    g) exponent         2e3
+    h) hexadecimal
+    i) octa         
+    j) binary           0b1010
+
+- Parsing Methods
+    a) parseInt()
+    b) parseFloat()
+
+- Converting
+    a) toFixed()
+    b) toLocaleString()
+
+EX:
+
+import { useEffect, useState } from "react"
+
+
+export function DataBinding(){
+
+    const [msg, setMsg] = useState('Shrinath');
+    
+    useEffect(()=>{
+
+        setMsg("Welcome to React.");
+
+    },[])
+    return(
+        <div className="container-fluid">
+
+            <h2>{msg.toUpperCase()}</h2>
+        </div>
+    )
+}
+
+
+3. Boolean
+
+- It uses "true" and "false" as value.
+- React can't display Booleans, it can just Booleans.
+
+Syntax:
+        const [stock] = useState(true);
+
+        <p>{ (stock===true)? "true":"false" }</p>
+
+Note: JSX will not allow any statements. All actions are handled only by using functions & operators.
+
+EX:
+
+import { useEffect, useState } from "react"
+
+
+export function DataBinding(){
+
+    const [stock, setStock] = useState(true);
+    
+    useEffect(()=>{
+
+        setStock(true);
+
+    },[])
+    return(
+        <div className="container-fluid">
+
+            <h2>Stock: {(stock===true)?"Available": "Out of Stock"}</h2>
+        </div>
+    )
+}
+
+
+4. NUll & Undefined
+
+- They are same as in JavaScript.
+- They are handled used the keywords "null & undefined".
+
+Syntax:
+        const [price, setPrice] = useState();
+
+        { (price)? price: "Price not Defined" }
+
+        { (price===null)? "Price not available" : price }

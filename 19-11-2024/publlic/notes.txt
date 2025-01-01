@@ -1,0 +1,64 @@
+Summery:
+- What is React?
+- How React is different from Angular?
+- What are the challenges in modern web development?
+- What are issues with JavaScript & jQuery?
+- React, Angular, Vue, Backbone JS, Knockout JS, Ember etc..
+
+FAQ: What is difference between React JS & React?
+Ans: Both are same. Modern React uses both JavaScript & TypeScript.
+
+
+FAQ: What are the features of React?
+Ans: 
+    1. React is Component Based.
+        - Easy to use
+        - Easy to extend
+        - Easy to test
+        - Easy to Maintain
+ 
+
+    2. React is Modular
+        - It makes application light weight.
+        - It makes rendering fast
+        - It import application specific library.
+        - It uses less memory
+
+
+    3. React Uses Virtual DOM
+
+        a) What is DOM?
+            - DOM is a hierarchy of elements in page.
+            - It is a part of BOM. [Browser Object Model]
+            - Browser Objects
+                Location, History, Navigator, Window, Document
+        
+        b) What is Shadow DOM?
+            - Shadow DOM is a hierarchy of elements in a Component.
+            - Every Component is built with markup, styles and logic.
+            - markup comprises of shadow root with collection of elements, which is known as shadow DOM.
+        
+        c) What is Virtual DOM?
+            - Virtual DOM is copy of a actual DOM in browser memory.
+            - React updates into virtual DOM, which later commits to actual DOM.
+            - It makes rendering fast.
+            
+FAQ: What are the issues with React?
+Ans: 
+    - React is not designed for what you are using.
+    - Hence lot of GAP's.
+            
+            AS-IS                   TO-BE                       GAP
+            what your technology    what client wants           Java 30% 
+            is capable of?                                      .NET 25%
+                                                                PHP %5
+
+    - It require lot of 3rd party libraries and services to integrate and handle various functionalities.
+    - The pace of development is very high.
+    - Poor Documentation.
+
+
+
+                                                    React 18x
+
+1. SetUp
