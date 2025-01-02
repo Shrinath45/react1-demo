@@ -1,0 +1,217 @@
+Ajax Request
+- XMLHttpRequest
+- fetch()
+- JQuery Ajax
+
+3rd Party Ajax libraries for React:
+
+- axios
+- whatwg fetch
+
+
+                    Axios
+
+
+- It is a library for handling "http" client.
+- Http client manages Ajax requests.
+- It can be uses servers side in Node JS.
+- It can handle multiple requests.
+- It can cancel requests.
+- It is promise based.
+- It handles XSRF.
+- It provides short hand techniques for requests like GET, POST, PUT, DELETE.
+- It manages CORS client side.
+
+
+1. Install axios for project.
+
+    > npm install axios --save
+
+2. Import axios from axios module
+
+    import axios from "axios";
+
+3. Configure the request
+
+    axios({
+        method: "get | post | put | delete",
+        url:"",
+        data:""
+    });
+
+4. Axios returns a response object on success that comprises of details like 
+
+        status, 
+        statusCode,
+        data,
+        headers etc..
+
+
+EX:
+data-binding.jsx
+
+import { useEffect, useState } from "react";
+import axios from "axios";
+
+export function DataBinding(){
+     
+      const [product, setProduct] = useState({title:"", price:0, rating:{ratings:0, rate:0, reviews:0}, offers:[], image:''});
+      
+      function LoadData(){
+
+        axios.get('product.json').then(Response=>{
+          setProduct(Response.data);
+        })
+
+      }
+    
+      useEffect(()=>{
+          LoadData();
+      },[])
+
+     return(
+        <div className="container-fluid">
+            <div className="mt-4 row">
+               <div className="col-4">
+                 <img width="100%" src={product.image} height="450" />
+               </div>
+               <div className="col-8">
+                    <div className="fs-4">{product.title}</div>
+                    <div className="mt-2">
+                       <span className="badge bg-success"> {product.rating.rate} <span className="bi bi-star-fill"></span> </span>
+                       <span className="text-secondary fw-bold"> {product.rating.ratings.toLocaleString()} ratings & {product.rating.reviews.toLocaleString()} reviews </span>
+                    </div>
+                    <div className="mt-4 fw-bold fs-1">
+                         {product.price}
+                    </div>
+                    <div className="mt-4">
+                        <h5>Available Offers</h5> 
+                        <ul className="list-unstyled">
+                          {
+                              product.offers.map(offer=> <li className="bi bi-tag-fill text-success my-3" key={offer}> <span className="text-secondary">{offer}</span> </li>)
+                          }
+                        </ul>
+                    </div>
+               </div>
+            </div>
+        </div>
+     )
+}
+
+
+
+
+                    Synthetic Events
+
+- Synthetic Event is the base for all React Events.
+- Events are categorized into various groups
+
+    1. Mouse Events
+    2. Keyboard Events
+    3. Button Events
+    4. Clipboard Events
+    5. Element State Events
+    6. Timer Events
+    7. Form Events
+    8. Touch Events etc...
+
+
+
+1. Mouse Events:
+
+        onMouseOver
+        onMouseOut
+        onMouseUp
+        onMouseDown
+        onMouseMove
+
+EX:
+mouse-events.css
+
+.col-1 img{
+    border: 2px solid black;
+}
+.col-1 img:hover{
+    border: 4px solid blue;
+}
+
+
+mouse-events.jsx
+
+import { useEffect, useState } from "react";
+import axios from "axios";
+import './mouse-events.css'
+
+export function MouseEvents(){
+     
+      const [product, setProduct] = useState({title:"", price:0, rating:{ratings:0, rate:0, reviews:0}, offers:[], image:''});
+      
+      function LoadData(){
+
+        axios.get('product.json').then(Response=>{
+          setProduct(Response.data);
+        })
+
+      }
+    
+      useEffect(()=>{
+          LoadData();
+      },[])
+
+     return(
+        <div className="container-fluid">
+            <div className="mt-4 row">
+               <div className="col-4">
+                 <img width="100%" src={product.image} height="450" />
+               </div>
+               <div className="col-8">
+                    <div className="fs-4">{product.title}</div>
+                    <div className="mt-2">
+                       <span className="badge bg-success"> {product.rating.rate} <span className="bi bi-star-fill"></span> </span>
+                       <span className="text-secondary fw-bold"> {product.rating.ratings.toLocaleString()} ratings & {product.rating.reviews.toLocaleString()} reviews </span>
+                    </div>
+                    <div className="mt-4 fw-bold fs-1">
+                         {product.price}
+                    </div>
+                    <div className="mt-4">
+                        <h5>Available Offers</h5> 
+                        <ul className="list-unstyled">
+                          {
+                              product.offers.map(offer=> <li className="bi bi-tag-fill text-success my-3" key={offer}> <span className="text-secondary">{offer}</span> </li>)
+                          }
+                        </ul>
+                    </div>
+               </div>
+            </div>
+        </div>
+     )
+}
+
+
+
+
+                Style Binding in React
+        
+- It is a technique of configuring CSS styles dynamically to JSX elements.
+- JSX uses "style" property, which is an object type.
+
+Syntax:
+        <h2 style={{ }}>Text</h2>
+
+- Style object comprises of style properties and values.
+- Style properties are CSS properties defined in "camelCase".
+- Style values are always String type.
+
+
+Property                CSS Property                React Style
+---------------------------------------------------------------------
+
+                        color                           color
+                        text-align                      textAlign
+                        background-color                backgroundColor
+                        font-weight                     fontWeight
+                        etc...              
+
+                    
+                    Syntax:
+                            <h2 style={{textAlign: 'center', fontSize: '30px', backgroundColor: 'black'}}></h2>

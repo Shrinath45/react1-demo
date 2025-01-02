@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import './mouse-events.css'
 
-export function DataBinding(){
+export function MouseEvents(){
      
       const [product, setProduct] = useState({title:"", price:0, rating:{ratings:0, rate:0, reviews:0}, offers:[], image:''});
       

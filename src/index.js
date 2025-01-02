@@ -8,12 +8,23 @@ import '../node_modules/bootstrap/dist/css/bootstrap.css';
 import '../node_modules/bootstrap-icons/font/bootstrap-icons.css';
 import '../node_modules/bootstrap/dist/js/bootstrap.bundle.js';
 import { DataBinding } from './components/data-binding/data-binding.jsx';
-
+import { MouseEvents } from './components/mouse-events/mouse-events.jsx';
+import { MouseAnimation } from './components/mouse-events/mouse-animation.jsx';
+import { ClassBinding } from './class-binding/class-binding.jsx';
+import { MouseMove } from './components/mouse-events/mouse-move.jsx';
+import { KeyDemo } from './components/key-demo/key-demo.jsx';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Home />
-    <DataBinding />
+    {/* <Home /> */}
+    {/* <DataBinding /> */}
+    {/* <MouseEvents />
+    <MouseAnimation /> */}
+
+    {/* < ClassBinding />
+    < MouseMove /> */}
+
+    < KeyDemo />
   </React.StrictMode>
 );
 
