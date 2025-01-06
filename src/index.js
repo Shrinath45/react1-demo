@@ -3,30 +3,16 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { Home } from './components/home/home.jsx'
 import '../node_modules/bootstrap/dist/css/bootstrap.css';
 import '../node_modules/bootstrap-icons/font/bootstrap-icons.css';
 import '../node_modules/bootstrap/dist/js/bootstrap.bundle.js';
-import { DataBinding } from './components/data-binding/data-binding.jsx';
-import { MouseEvents } from './components/mouse-events/mouse-events.jsx';
-import { MouseAnimation } from './components/mouse-events/mouse-animation.jsx';
-import { MouseMove } from './components/mouse-events/mouse-move.jsx';
-import { KeyDemo } from './components/key-demo/key-demo.jsx';
-import { ClassBinding } from './components/class-binding/class-binding.jsx';
-import { DebounceDemo } from './components/Debounce/debounce-demo.jsx';
+import { ClipboardDemo } from './components/clipboard-demo/clipboard-demo.jsx';
+
+import { FakestoreProducts } from './components/fakestore/fakestore-products.jsx';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    {/* <Home /> */}
-    {/* <DataBinding /> */}
-    {/* <MouseEvents />
-    <MouseAnimation /> */}
-
-    {/* < ClassBinding />
-    < MouseMove /> */}
-
-    {/* < KeyDemo /> */}
-    <DebounceDemo />
+    < ClipboardDemo />
   </React.StrictMode>
 );
 
