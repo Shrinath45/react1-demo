@@ -6,7 +6,7 @@
 - Every form element must use "onChange" event to enable two-way-binding.
 
 EX:
-form-demo.jsx
+for m-demo.jsx
 
 import { useState } from "react";
 

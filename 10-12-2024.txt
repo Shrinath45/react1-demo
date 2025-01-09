@@ -1,0 +1,264 @@
+
+                    Formik Validation
+
+
+- Validation is the process of verifying user input.
+- Validation is required to ensure that contradictory and unauthorized data is not get stored into database.
+- Formik can use custom validation functions to verify form data.
+
+
+Custom Validation:
+
+1. Create a function to collect data from form. [Object type]
+2. Validation function that you create must return an error object.
+3. Error object comprises of Key and Value.
+
+    a) Key is form field name.
+    b) Value is the error message to display when it is invalid
+
+Syntax:     
+        function ValidateProduct(formData){
+            var errorObject = {FieldName:''};
+            return error;
+        }
+
+
+4. Formik uses your validation function to collect the validation errors.
+
+Syntax:  
+        const formik = useFormik({
+            initialValues: {},
+            validation: YourValidationFunctionName,
+            onSubmit: (values) =>{}
+        })
+
+5. The validation function executes on various Formik events like
+
+        formik.handleChange
+        formik.handleBlur
+        formik.handleSubmit
+
+6. To display error messages you have to use "formik.errors" object.
+
+    { formik.errors.fieldName }
+
+
+EX: formik-demo.jsx
+
+import React from "react";
+import { Formik, useFormik } from "formik";
+
+export function FormikDemo(){
+
+
+    function ValidateProduct(formData){
+        var error = {ProductID:'', Name: '', Price:'', Stock:'', City: '', Mobile:''};
+
+        if(formData.ProductID===0){
+            error.ProductID = "Product ID required & Can't be zero.";
+        }
+
+        if(formData.Name.length===0){
+            error.Name = "Product Name is Required";
+        }else{
+            if(formData.Name.length<4){
+                error.Name = "Name too short";
+            }else{
+                error.Name = "";
+            }
+        }
+
+        if(formData.City==="Select City"){
+            error.City = "Please Select a City";
+        }else{
+            error.City = "";
+        }
+
+        if(formData.Mobile.length===0){
+            error.Mobile = "Mobile Required";
+        }else{
+            if(formData.Mobile.match(/\+91\d{10}/)){
+                error.Mobile = "";
+            }else{
+                error.Mobile = "Invalid Mobile: +91 10 digits";
+            }
+        }
+
+        return error;
+    }
+
+    const formik = useFormik({
+        initialValues:{
+            ProductID: 0,
+            Name: '',
+            Price:0,
+            Stock:false,
+            City: 'Select City',
+            Mobile: ''
+        },
+        validate: ValidateProduct,
+        onSubmit: (product)=>{
+            console.log(product);
+        }
+    });
+
+
+
+
+
+    return(
+        <div className="container-fluid">
+            <form onSubmit={formik.handleSubmit}>
+            <h2>Register</h2>
+            <dl>
+                
+                <dt>Product ID</dt>
+                <dd><input type="number" name="ProductID" onBlur={formik.handleBlur} onChange={formik.handleChange}/></dd>
+                <dd className="text-danger">{formik.errors.ProductID}</dd>
+                <dt>Name</dt>
+                <dd><input type="text" name="Name" onChange={formik.handleChange}/></dd>
+                <dd className="text-danger">{formik.errors.Name}</dd>
+                <dt>Price</dt>
+                <dd><input type="number" name="Price" onChange={formik.handleChange}/></dd>
+                <dt>Stock</dt>
+                <dd><input type="checkbox" name="Stock" onChange={formik.handleChange}/><label>Available</label></dd>
+                <dt>City</dt>
+                <dd>
+                    <select name="City" onChange={formik.handleChange}>
+                        <option>Select City</option>
+                        <option>Nanded</option>
+                        <option>Pune</option>
+                    </select>
+                </dd>
+                <dd className="text-danger">
+                    {formik.errors.City}
+                </dd>
+                <dt>Mobile</dt>
+                <dd><input type="text" name="Mobile" onChange={formik.handleChange}/></dd>
+                <dd className="text-danger">
+                    {formik.errors.Mobile}
+                </dd>
+            </dl>
+            <button type="submit">Register</button>
+            </form>
+        </div>
+    )
+}
+
+
+
+- Formik canuse pre-defined validation schemas.
+- "Yup" is validation schema library for "Formik".
+
+Validation Schema Library:
+
+1. Install SChema Library 
+    >npm install yup --save
+
+2. Yup provides various validation services, you can import all services or any specific service. 
+
+    import { required } from "yup";
+    import * as yup from "yup";
+
+3. If you import all services then yup provides an object that comprises of all validation services.
+
+    yup.object({
+        fieldname: yup.dataType().serviceName('errorMessage)
+    })
+
+4. Formik uses validation services by using "validationSchema" Attribute.
+
+    Syntax:
+            const formik = useFormik({
+                initialValues: {},
+                validationSchema: yup.object(),
+                onSubmit: (values)=>{}
+            })
+
+5. Validation events are same
+
+    formik.handleChange
+    formik.handleBlur
+    formik.handleSubmit
+
+6. Error object that contains error details is same
+
+        { formik.errors.fieldname }
+
+7. You can use the "spread" approach for formik to access all events and bind with form element.
+
+Syntax:
+        <input type="text" name="ProductID" {...formik.getFieldProps("ProductID")} />
+
+EX: formik-demo.jsx
+
+import React from "react";
+import { Formik, useFormik } from "formik";
+import * as yup from "yup";
+
+export function FormikDemo(){
+
+
+    
+
+    const formik = useFormik({
+        initialValues:{
+            ProductID: 0,
+            Name: '',
+            Price:0,
+            Stock:false,
+            City: 'Select City',
+            Mobile: ''
+        },
+        validationSchema: yup.object({
+            ProductID:yup.number().required('Product ID is Required').min(1, 'Product ID cant be Zero'),
+            Name: yup.string().required('Name Required').min(4, 'Name too short').max(10, 'Name too Long'),
+            Mobile: yup.string().required('Mobile is Required').matches(/\+91\d{10}/, 'Invalid Mobile')
+
+
+        }),
+        onSubmit: (product)=>{
+            console.log(product);
+        }
+    });
+
+
+    return(
+        <div className="container-fluid">
+            <form onSubmit={formik.handleSubmit}>
+            <h2>Register</h2>
+            <dl>
+                
+                <dt>Product ID</dt>
+                <dd><input type="number" name="ProductID" {...formik.getFieldProps('ProductID')}/></dd>
+                <dd className="text-danger">{formik.errors.ProductID}</dd>
+                <dt>Name</dt>
+                <dd><input type="text" name="Name" onChange={formik.handleChange}/></dd>
+                <dd className="text-danger">{formik.errors.Name}</dd>
+                <dt>Price</dt>
+                <dd><input type="number" name="Price" onChange={formik.handleChange}/></dd>
+                <dt>Stock</dt>
+                <dd><input type="checkbox" name="Stock" onChange={formik.handleChange}/><label>Available</label></dd>
+                <dt>City</dt>
+                <dd>
+                    <select name="City" onChange={formik.handleChange}>
+                        <option>Select City</option>
+                        <option>Nanded</option>
+                        <option>Pune</option>
+                    </select>
+                </dd>
+                <dd className="text-danger">
+                    {formik.errors.City}
+                </dd>
+                <dt>Mobile</dt>
+                <dd><input type="text" name="Mobile" onChange={formik.handleChange}/></dd>
+                <dd className="text-danger">
+                    {formik.errors.Mobile}
+                </dd>
+            </dl>
+            <button type="submit">Register</button>
+            </form>
+        </div>
+    )
+}
+

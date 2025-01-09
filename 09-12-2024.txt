@@ -1,0 +1,330 @@
+            Forms in React
+
+
+- React have one-way binding.
+- It enables data from source to bind with UI elements.
+- The changes in value are not allowed in default one-way binding. 
+- Every form element must use "onChange" event to enable two-way-binding.
+
+EX:
+form-demo.jsx
+
+import react, { useState } from "react"
+
+
+export function FormDemo(){
+
+    const [Product, setProduct] = useState({Id:0, Name:'', Price:0, Stock:false, City:''});
+
+    function handleIdChange(e){
+        setProduct({
+            Id: e.target.value,
+            Name: Product.Name,
+            Price: Product.Price,
+            Stock: Product.Stock,
+            City: Product.City
+
+        })
+    }
+    function handleNameChange(e){
+        setProduct({
+            Id: Product.Id,
+            Name: e.target.value,
+            Price: Product.Price,
+            Stock: Product.Stock,
+            City: Product.City
+
+        })
+    }
+
+    function handlePriceChange(e){
+        setProduct({
+            Id: Product.Id,
+            Name: Product.Name,
+            Price: e.target.value,
+            Stock: Product.Stock,
+            City: Product.City
+
+        })
+    }
+
+    function handleStockChange(e){
+        setProduct({
+            Id: Product.Id,
+            Name: Product.Name,
+            Price: Product.Price,
+            Stock: e.target.value,
+            City: Product.City
+
+        })
+    }
+
+    function handleCityChange(e){
+        setProduct({
+            Id: Product.Id,
+            Price: Product.Price,
+            Stock: Product.Stock,
+            Name: Product.Name,
+            City: e.target.value
+
+        })
+    }
+
+    function handleRegisterClick(e){
+        e.preventDefault();
+        console.log(Product);
+    }
+
+
+    return(
+        <div className="container-fluid">
+            <form onSubmit={handleRegisterClick}>
+            <h2>Register Product</h2>
+            <dl>
+                <dt>Product ID</dt>
+                <dd><input type="number" value={Product.Id} onChange={handleIdChange}/></dd>
+                <dt>Name</dt>
+                <dd><input type="text" value={Product.Name}  onChange={handleNameChange}/></dd>
+                <dt>Price</dt>
+                <dd><input type="number" value={Product.Price} onChange={handlePriceChange}/></dd>
+                <dt>Stock</dt>
+                <dd><input type="checkbox" checked={Product.Stock} onChange={handleStockChange}/><label>Available</label></dd>
+                <dt>Shipped To:</dt>
+                <dd>
+                    <select value={Product.City} onChange={handleCityChange}>
+                        <option>Select City</option>
+                        <option>Nanded</option>
+                        <option>Pune</option>
+                    </select>
+                </dd>
+
+            </dl>
+            <button type="submit">Register</button>
+            </form>
+        </div>
+    )
+}
+
+
+- React will not provide any validation services for form elements.
+- You have to validate the value manually using JavaScript functions.
+
+EX:
+form-demo.jsx
+
+import react, { useState } from "react"
+
+
+export function FormDemo(){
+
+    const [Product, setProduct] = useState({Id:0, Name:'', Price:0, Stock:false, City:''});
+
+    const [nameError, setNameError] = useState('');
+    const [cityError, setCityError] = useState('');
+
+    function handleIdChange(e){
+        setProduct({
+            Id: e.target.value,
+            Name: Product.Name,
+            Price: Product.Price,
+            Stock: Product.Stock,
+            City: Product.City
+
+        })
+    }
+    function handleNameChange(e){
+        setProduct({
+            Id: Product.Id,
+            Name: e.target.value,
+            Price: Product.Price,
+            Stock: Product.Stock,
+            City: Product.City
+
+        })
+    }
+
+    function handlePriceChange(e){
+        setProduct({
+            Id: Product.Id,
+            Name: Product.Name,
+            Price: e.target.value,
+            Stock: Product.Stock,
+            City: Product.City
+
+        })
+    }
+
+    function handleStockChange(e){
+        setProduct({
+            Id: Product.Id,
+            Name: Product.Name,
+            Price: Product.Price,
+            Stock: e.target.value,
+            City: Product.City
+
+        })
+    }
+
+    function handleCityChange(e){
+        setProduct({
+            Id: Product.Id,
+            Price: Product.Price,
+            Stock: Product.Stock,
+            Name: Product.Name,
+            City: e.target.value
+
+        })
+    }
+
+    function handleRegisterClick(e){
+        e.preventDefault();
+        console.log(Product);
+    }
+
+    function handleNameBlur(e){
+        if(e.target.value === ""){
+            setNameError('Product Name is Required')
+        }else{
+            setNameError('');
+        }
+    }
+
+
+    return(
+        <div className="container-fluid">
+            <form onSubmit={handleRegisterClick}>
+            <h2>Register Product</h2>
+            <dl>
+                <dt>Product ID</dt>
+                <dd><input type="number" value={Product.Id} onChange={handleIdChange}/></dd>
+                <dt>Name</dt>
+                <dd><input type="text" onBlur={handleNameBlur} value={Product.Name}  onChange={handleNameChange}/></dd>
+                <dd className="text-danger">{nameError}</dd>
+                <dt>Price</dt>
+                <dd><input type="number" value={Product.Price} onChange={handlePriceChange}/></dd>
+                <dt>Stock</dt>
+                <dd><input type="checkbox" checked={Product.Stock} onChange={handleStockChange}/><label>Available</label></dd>
+                <dt>Shipped To:</dt>
+                <dd>
+                    <select value={Product.City} onChange={handleCityChange}>
+                        <option>Select City</option>
+                        <option>Nanded</option>
+                        <option>Pune</option>
+                    </select>
+                </dd>
+
+            </dl>
+            <button type="submit">Register</button>
+            </form>
+        </div>
+    )
+}
+
+
+
+                3rd Party React Form Libraries
+
+- The popular 3rd party  libraries for React are
+
+    1. Formik
+    2. React Hook Form
+    3. Telerik Kendo Form
+
+
+                React Formik Library
+
+- Formik provides predefined components and hooks for handling React Forms.
+- It is easy to extend and validate forms.
+- It is easy to manage two-way binding.
+- It provides built-in security that prevents XSRF.
+
+
+React Formik Hook:
+
+1. Install formik for project
+    > npm install formik --save
+
+2. Import "useFormik" hook from "formik" module
+
+Syntax: 
+        import { useFormik } from "formik";
+
+        const formik = useFormik({options});
+
+        Options:
+            {
+                initialValues: {},       // It refers to the fields in form.
+                validate: ()=>{},        // It refers to a function that contains validation methods
+                validationSchema: ()=>{},        // It uses a predefined validation function.
+                onSubmit: ()=>{},        // It defines the actions to perform on submit.
+                enableReinitialize: bool        // It controls re-initialization pf form values. 
+            }
+
+3. Bind the formik events and values with form elements
+
+    <input type="text" onChang{formik.handleChange} />
+
+Note: Every form element in formik must have a reference name, which maps to the initial values.
+
+    <input type="text" name="ProductID" onChang{formik.handleChange} />
+
+4. Bind the submit event of formik with form element.
+
+    <form onSubmit={formik.handleSubmit}>
+    
+    </form>
+
+
+EX: 
+    formik-demo.jsx
+
+    import React from "react";
+import { Formik, useFormik } from "formik";
+
+export function FormikDemo(){
+
+    const formik = useFormik({
+        initialValues:{
+            ProductID: 0,
+            Name: '',
+            Price:0,
+            Stock:false,
+            City: 'Select City'
+        },
+        onSubmit: (product)=>{
+            console.log(product);
+        }
+    });
+
+
+
+
+
+    return(
+        <div className="container-fluid">
+            <form onSubmit={formik.handleSubmit}>
+            <h2>Register</h2>
+            <dl>
+                
+                <dt>Product ID</dt>
+                <dd><input type="number" name="ProductID" onChange={formik.handleChange}/></dd>
+                <dt>Name</dt>
+                <dd><input type="text" name="Name" onChange={formik.handleChange}/></dd>
+                <dt>Price</dt>
+                <dd><input type="number" name="Price" onChange={formik.handleChange}/></dd>
+                <dt>Stock</dt>
+                <dd><input type="checkbox" name="Stock" onChange={formik.handleChange}/><label>Available</label></dd>
+                <dt>City</dt>
+                <dd>
+                    <select name="City" onChange={formik.handleChange}>
+                        <option>Select City</option>
+                        <option>Nanded</option>
+                        <option>Pune</option>
+                    </select>
+                </dd>
+            </dl>
+            <button type="submit">Register</button>
+            </form>
+        </div>
+    )
+}
