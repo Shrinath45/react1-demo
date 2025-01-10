@@ -1,0 +1,202 @@
+        React Hook Forms
+
+- It provides various hooks for handling validations, CRUD operations, controlled components. context with complex forms etc.
+- "useForm()" is a hook provided by library to configure and validate form.
+
+1. Install Hook form library
+
+        > npm install reacct-hook-form --save
+    
+2. Import "useForm()" hook into component.
+
+3. useForm returns an object that contains formName, submitFunction, formState.
+
+Syntax:
+        const { formName, submitFunction, formState:{errors}} = useForm();
+
+        const { formRegister, handleSubmit, formState:{errors}} = useForm();
+
+4. You have to configure a submit function that collects values from form.
+
+    Syntax:
+            const submit = (Values) => {
+                //post values
+            }
+
+5. HTML form uses submit function
+
+    <form onSubmit={ handleSubmit(submit) }>
+
+    </form>
+
+6. Hook Form reference provides "spread" approach to handle data binding & event binding.
+
+    <input type="text" name="userName" {...register("userName")} />
+
+    <input type="text" name="userName" {...register("userName", {required:true, minLength:4, pattern://})} />
+
+7. Errors object of formState will capture the error type and renders relative content.
+
+    { ( errors.userName?.type==="required" ) ? " " : " " && ( exp2 ) || ( exp3 ) }
+
+
+EX: hook-form-demo.jsx
+
+ import { useForm } from "react-hook-form"
+
+
+ export function HookFormDemo(){
+
+    const {register, handleSubmit, formState:{errors}} = useForm();
+
+    const submit = (values) => {
+        console.log(values);
+    }
+
+    return(
+        <div className="container-fluid">
+            <h2>Register</h2>
+            <form onSubmit={handleSubmit(submit)}>
+                <dl>
+                    <dt>User Name</dt>
+                    <dd><input type="text" name="userName" {...register("userName", {required:true, minLength: 4,})} /></dd>
+                    <dd className="text-danger">
+                        {
+                            (errors.userName?.type==="required")? <span>User Name Required</span>:<span></span> && (errors.userName?.type==="minLength")?<span>Name too short</span>: <span></span>
+                        }
+                    </dd>
+                    <dt>Mobile</dt>
+                    <dd><input type="text" name="mobile" {...register("mobile", {required:true, pattern: /\+91\d{10}/})} /></dd>
+                    <dd className="text-danger">
+                        {
+                            (errors.mobile?.type==="required")? <span>Mobile Required</span>:<span></span> && (errors.mobile?.type==="pattern")?<span>Invalid Mobile.</span>: <span></span>
+                        }
+                    </dd>
+                </dl>
+                <button type="submit">Register</button>
+            </form>
+
+        </div>
+    )
+ }
+
+
+- Class Binding
+- Style Binding
+- Event Binding
+- Data Binding
+- Forms
+
+
+
+
+                    Controlled Components
+
+
+- React Components are categorized into 2 types based on behavior.
+
+    a) Uncontrolled Component
+    b) Controlled component
+
+- Uncontrolled component is absolute, which renders same output every time and have same functionality on every request.
+
+- Controlled Component is relative, It's output and functionality is controlled by the data passed from parent component.
+
+- A controlled component comprises of "props" [properties], that modify the component functionality.
+
+Syntax:
+        function Component(props){
+
+        }
+
+- Component "props" is object type, with key and value reference.
+
+    props.key = value;
+
+    Keys are dynamic type.
+
+Syntax:
+        <Component key={} />
+
+EX:
+1. Add a new folder "controlled-components" into "src"
+
+2. Add a new file into folder
+
+    "navbar.jsx"
+
+
+
+export function Navbar(props){
+    return(
+        <nav className={`d-flex justify-content-between p-3 border border-1 ${props.theme}`}>
+            <div className="fs-5 fw-bold">{props.title}</div>
+            <div>
+                {
+                    props.menuItems.map(item=><span className="mx-3" key={item}>{item}</span>) 
+                }
+            </div>
+            <div>
+                {
+                    props.shortcut.map(shortcut=><button className={`${shortcut} btn`} key={shortcut}></button>)
+                }
+            </div>
+        </nav>
+    )
+}
+
+
+
+3. Import Navbar into any component and Configure props. 
+
+
+
+hook-form-demo.jsx
+
+ import { useForm } from "react-hook-form"
+import { Login } from "../../login";
+import { Navbar } from "../controlled-somponent/navbar";
+
+ export function HookFormDemo(){
+
+    const {register, handleSubmit, formState:{errors}} = useForm();
+
+    const submit = (values) => {
+        console.log(values);
+    }
+
+    return(
+        <div className="container-fluid">
+            <header className="mt-4 ">
+                <Navbar theme="bg-danger text-light" title="Shopper." menuItems={['Home', 'SHop', 'Catalog', 'Blog', 'Docs']} shortcut={['bi bi-person','bi bi-cart4']} />
+            </header>
+            <section>
+                <Navbar theme="bg-primary text-white" title="Naresh IT" menuItems={['Home', 'Courses', 'Offers']} shortcut={['bi bi-heart', 'bi bi-person', 'bi bi-bell', 'bi bi-facebook']} />
+            </section>
+            <div>
+                <Login />
+            </div>
+            <h2>Register</h2>
+            <form onSubmit={handleSubmit(submit)}>
+                <dl>
+                    <dt>User Name</dt>
+                    <dd><input type="text" name="userName" {...register("userName", {required:true, minLength: 4,})} /></dd>
+                    <dd className="text-danger">
+                        {
+                            (errors.userName?.type==="required")? <span>User Name Required</span>:<span></span> && (errors.userName?.type==="minLength")?<span>Name too short</span>: <span></span>
+                        }
+                    </dd>
+                    <dt>Mobile</dt>
+                    <dd><input type="text" name="mobile" {...register("mobile", {required:true, pattern: /\+91\d{10}/})} /></dd>
+                    <dd className="text-danger">
+                        {
+                            (errors.mobile?.type==="required")? <span>Mobile Required</span>:<span></span> && (errors.mobile?.type==="pattern")?<span>Invalid Mobile.</span>: <span></span>
+                        }
+                    </dd>
+                </dl>
+                <button type="submit">Register</button>
+            </form>
+
+        </div>
+    )
+ }

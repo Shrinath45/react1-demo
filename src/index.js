@@ -9,12 +9,14 @@ import '../node_modules/bootstrap/dist/js/bootstrap.bundle.js';
 import { ClipboardDemo } from './components/clipboard-demo/clipboard-demo.jsx';
 import { FormDemo } from './components/form-demo/form-demo.jsx';
 import { FormikDemo } from './components/formik-demo/formik-demo.jsx';
+import { FormikComponent } from './components/Fomik-Component/formik-component.jsx';
 
 import { FakestoreProducts } from './components/fakestore/fakestore-products.jsx';
+import { HookFormDemo } from './components/hook-form-demo/hook-form-demo.jsx';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <FormikDemo />
+    <HookFormDemo />
   </React.StrictMode>
 );
 
