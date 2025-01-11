@@ -1,0 +1,282 @@
+Uncontrolled Components
+Controlled Components
+Props [object]
+<Formik>
+<Form>
+<ErrorMessage>
+<Field type="">
+
+EX:
+1. Add a new file into controlled-components folder
+
+    "data-grid.jsx"
+
+
+
+
+
+
+
+export function DataGrid(props){
+    return(
+        <table className={`${props.theme} table table-hover caption-top`}>
+            <caption>{props.caption}</caption>
+            <thead>
+                <tr>
+                    {
+                        props.fields.map(field=> <th key={field}>
+                            <div className="dropdown" id="filters">
+                                <button data-bs-target="#filters" data-bs-toggle="dropdown" className=" bi bi-three-dots-vertical btn btn-light ms-3">
+                                {field.toUpperCase()}
+                                </button>
+                                <ul className="dropdown-menu">
+                                    <li className="dropdown-item-sort text-center">
+                                        <span>Sort Asc <span className="bi bi-sort-alpha-down "></span></span>
+
+                                    </li>
+
+                                    <li className="dropdown-item-sort text-center">
+                                        <span>Sort Asc <span className="bi bi-sort-alpha-up"></span></span>
+
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </th>
+                        )
+                    }
+                    <th>Action</th>
+                </tr>
+            </thead>
+                
+            <tbody>
+                {
+                    props.data.map(record=>
+                        <tr key={record}>
+                            {
+                                Object.keys(record).map(field=>
+                                    <td key={field}> {record[field]} </td>
+                                )
+                            }
+                            <td>
+                                <button className="btn btn-warning bi bi-pencil-fill"></button>
+                                <button className="btn btn-danger bi bi-trash-fill ms-2"></button>
+                            </td>
+                        </tr>
+                    )
+                }
+            </tbody>
+
+            <tfoot>
+                <tr>
+                    <td>{props.footer}</td>
+                </tr>
+            </tfoot>
+        </table>
+    )
+}
+
+2. Import and implement in any another components
+
+    custom-demo.jsx
+
+import { DataGrid } from "../controlled-somponent/data-grid"
+
+
+export function CustomDemo(){
+    return(
+        <div className="container-fluid">
+            <h2>Employees</h2>
+            <DataGrid theme='table-dark' caption="Employee Details - Updated on Dec 2024" fields={['first Name', 'Last Name', 'Designation']} data={[{FirstName:'Kiran', LastName:'Kumar', Designation:'Manager'}, {FirstName:'Shrinath', LastName:'Adhav', Designation:'Developer'}]} footer="copyright 2023" />
+
+            <h2>Products</h2>
+            <DataGrid theme='table-primary' caption="Products Details - Updated on Nov 2024" fields={['Name', 'Price', 'Stock', 'Rating']} data={[{Name:'Samsung TV', Price:88000, Stock:'Available', Rating:4.7}]} footer="copyright 2023" />
+        </div>
+    )
+}
+
+
+
+                            Conditional Rendering
+
+        
+- It is a technique used to render different types of content with a component.
+- A controlled component can use various decision making statements to check the state and render the content according to state or situation.
+
+    if() { }
+    switch { }
+    (Condition) ? true : false
+
+Rendering Components:
+
+- A component can use Condition to access and render various components into the current context.
+
+Syntax:
+        if(Condition){
+            <component1 />
+        }else{
+            <component2 />
+        }
+
+EX:
+custom-demo.jsx
+
+import { useState } from "react"
+import { DataGrid } from "../controlled-somponent/data-grid"
+import { Register } from "../register/register";
+import { Login } from "../../login";
+export function CustomDemo(){
+
+    const [component, setComponent] = useState();
+
+    function LoadComponent(e){
+        if(e.target.id==="register"){
+            setComponent(<Register />);
+        }else{
+            setComponent(<Login />);
+        }
+    }
+
+    return(
+        <div className="container-fluid">
+            <nav className="mt-3">
+                <button onClick={LoadComponent} id="signin" className="btn btn-primary me-2">Signin</button>
+                <button onClick={LoadComponent} id="register" className="btn btn-dark">Register</button>
+            </nav>
+            <section className="mt-4">
+                {
+                    component
+                }
+            </section>
+        </div>
+    )
+}
+
+
+Rendering UI in a Component:
+
+- A component can have multiple JSX Fragments configured as return.
+- You can use a condition to render specific Fragment according to state and situation.
+
+Syntax:
+        export function Component(props){
+            if(props.key==value){
+                return(
+                    <JSX> Fragment 1 </JSX>
+                )
+            }else{
+                return(
+                    <JSX> Fragment 2 </JSX>
+                )
+            }
+        }
+
+EX:
+data-grid.jsx
+
+export function DataGrid(props){
+    if(props.layout==="grid"){
+     return(
+         <table className={`table table-hover caption-top ${props.theme}`}>
+             <caption>{props.caption}</caption>
+             <thead>
+                <tr>
+                   {
+                     props.fields.map(field=>
+                       <th key={field}>
+                            
+                             <div className="dropdown" id="filters">
+                             <button data-bs-target="#filters" data-bs-toggle="dropdown" className="bi bi-three-dots-vertical btn btn-light ms-3">
+                               {field.toUpperCase()}
+                             </button>
+                              <ul className="dropdown-menu">
+                                 <li className="dropdown-item">
+                                     <span className="dropdown-item-text"> Sort Asc <span className="bi bi-sort-alpha-down"></span> </span>
+                                 </li>
+                                 <li className="dropdown-item">
+                                     <span className="dropdown-item-text"> Sort Desc <span className="bi bi-sort-alpha-up"></span> </span>
+                                 </li>
+                              </ul>
+                             </div>
+ 
+                       </th>
+                     )
+                   }
+                   <th>Actions</th>
+                </tr>
+             </thead>
+             <tbody>
+                 {
+                     props.data.map(record=>
+                         <tr key={record}>
+                             {
+                                 Object.keys(record).map(field=>
+                                     <td key={field}> {record[field]} </td>
+                                    
+                                 )
+                             }
+                             <td>
+                                 <button className="btn btn-warning bi bi-pen-fill"></button>
+                                 <button className="btn btn-danger bi bi-trash ms-2"></button>
+                             </td>
+                         </tr>
+                     )
+                 }
+             </tbody>
+             <tfoot>
+                 <tr>
+                     <td>{props.footer}</td>
+                 </tr>
+             </tfoot>
+         </table>
+     )
+    } else {
+         return (
+             <div className="d-flex">
+                 {
+                     props.data.map(record=>
+                         <div key={record} className="card m-2 p-2">
+                             <div className="card-header">
+                                 { record[Object.keys(record)[0]] }
+                             </div>
+                             <div className="card-body">
+                                 {
+                                     record[Object.keys(record)[1]]
+                                 }
+                             </div>
+                         </div>
+                     )
+                 }
+             </div>
+         )
+    }
+ }
+
+
+ Custom-demo.jsx
+
+ import { useState } from "react";
+import { DataGrid } from "../controlled-somponent/data-grid";
+
+export function CustomDemo(){
+
+    const [layoutName, setLayoutName] = useState('grid');
+
+    function handleLayoutChange(e){
+        setLayoutName(e.target.value);
+    }
+
+    return(
+        <div className="container-fluid">
+           <h2>Employees</h2>
+           <select onChange={handleLayoutChange}>
+              <option>Select Layout</option>
+              <option value="grid">Grid</option>
+              <option value="card">Card</option>
+           </select>
+           <DataGrid layout={layoutName} theme='table-dark' caption="Employee Details - Updated on Dec 2024" fields={['First Name', 'Last Name', 'Designation']} data={[{FirstName:'Kiran', LastName:'Kumar', Designation:'Manager'}, {FirstName:'Rakesh', LastName:'Kumar', Designation:'Developer'}]} footer="copyright 2024" />
+
+        </div>
+    )
+}
+

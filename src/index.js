@@ -13,10 +13,11 @@ import { FormikComponent } from './components/Fomik-Component/formik-component.j
 
 import { FakestoreProducts } from './components/fakestore/fakestore-products.jsx';
 import { HookFormDemo } from './components/hook-form-demo/hook-form-demo.jsx';
+import { CustomDemo } from './components/custom-demo/custom-demo.jsx';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <HookFormDemo />
+    <CustomDemo />
   </React.StrictMode>
 );
 
