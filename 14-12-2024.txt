@@ -1,0 +1,126 @@
+Condition Rendering Within Component
+
+- A component can use ternary operator inside JSX to render various elements according to the state and situation.
+
+Syntax:
+        ( condition ) ? <span> true </span> : <span> true </span>
+
+
+
+                    React Cookies 
+
+
+- Cookies is a state management technique for web applications.
+- It is client side state.
+- It stores the client details in a text document and appends into client memory.
+- It can be
+
+    a) In-memory [Temporary]
+    b) Persistent [Permanent]
+
+- "react-cookies" is a 3rd party library for managing cookies using virtual DOM methods.
+- In JavaScript "document" object manages cookies.
+
+1. Install Cookie library
+
+        > npm install react-cookie --Save
+
+2. Import "useCookies()" hook into component.
+
+3. useCookies hook provide 3 elements
+
+    a) cookies      : It is a reference to access cookies
+    b) setCookie    : It create a new cookie.
+    c) removeCookie : It removes the cookie.
+
+
+Syntax:
+        const [cookies, setCookie, removeCookie] = useCookies('cookieName');
+
+        setCookie('cookieName', value, { expire:days })
+
+        cookies['cookieName']
+
+        removeCookie('cookieName')
+
+
+FAQ: How to check the status of cookies in browser?
+Ans: By using browser "navigator.cookieEnabled", which returns true if cookies are enabled on browser.
+
+4. Cookies memory is located and provided to components by using a component called "CookiesProvider". The components that run within the scope of cookies provider can use the cookie memory.
+
+
+        index.jsx
+
+        <CookiesProvider>
+            <YourComponent>
+        </CookiesProvider>
+
+EX:
+1. Go to "index.js"
+
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+import App from './App';
+import reportWebVitals from './reportWebVitals';
+import '../node_modules/bootstrap/dist/css/bootstrap.css';
+import '../node_modules/bootstrap-icons/font/bootstrap-icons.css';
+import '../node_modules/bootstrap/dist/js/bootstrap.bundle.js';
+import { CookiesProvider } from 'react-cookie';
+import { StateDemo } from './components/state-demo/state-demo.jsx';
+
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+  <React.StrictMode>
+    <CookiesProvider>
+      <StateDemo />
+    </CookiesProvider>
+  </React.StrictMode>
+);
+
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+reportWebVitals();
+
+
+2. Add Component state-demo.jsx
+
+import { useEffect, useState } from "react";
+import { useCookies } from "react-cookie";
+
+
+export function StateDemo(){
+    const [cookies, setCookie, removeCookie] = useCookies(['username']);
+    const [userName, setUserName] = useState();
+
+    function handleNameChange(e){
+        setUserName(e.target.value);
+    }
+
+    function handleSigninClick(){
+        setCookie('username', userName, {expires:new Date('2025-01-11')});
+    }
+
+    function handleSignout(){
+        removeCookie('username');
+    }
+
+    useEffect(()=>{
+
+    }, [])
+
+    return(
+        <div className="container-fluid">
+            <header className="mt-4 p-3 d-flex justify-content-between border border-2 border-dark">
+                {
+                    (cookies['username'])? <span>Hello ! {cookies['username']} <span className="badge rounded border border-1 border-dark rounded-circle"><img alt="" src="flag.gif" width="20" height="20" /></span><button className="btn btn-danger" onClick={handleSignout}>SignOut</button></span>: <span>Hello ! Guest <input onChange={handleNameChange} type="text" /><button onClick={handleSigninClick}>Signin</button></span>
+                }
+            </header>
+        </div>
+    )
+}
+
+

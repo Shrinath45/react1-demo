@@ -6,18 +6,20 @@ import reportWebVitals from './reportWebVitals';
 import '../node_modules/bootstrap/dist/css/bootstrap.css';
 import '../node_modules/bootstrap-icons/font/bootstrap-icons.css';
 import '../node_modules/bootstrap/dist/js/bootstrap.bundle.js';
-import { ClipboardDemo } from './components/clipboard-demo/clipboard-demo.jsx';
-import { FormDemo } from './components/form-demo/form-demo.jsx';
-import { FormikDemo } from './components/formik-demo/formik-demo.jsx';
-import { FormikComponent } from './components/Fomik-Component/formik-component.jsx';
+import { CookiesProvider } from 'react-cookie';
+import { StateDemo } from './components/state-demo/state-demo.jsx';
+import { HookDemo } from './components/Hooks/hook-demo.jsx';
+import { Login } from './login.js';
 
-import { FakestoreProducts } from './components/fakestore/fakestore-products.jsx';
-import { HookFormDemo } from './components/hook-form-demo/hook-form-demo.jsx';
-import { CustomDemo } from './components/custom-demo/custom-demo.jsx';
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <CustomDemo />
+    {/* <CookiesProvider>
+      <StateDemo />
+    </CookiesProvider> */}
+    <HookDemo />
+    <Login />
   </React.StrictMode>
 );
 
