@@ -1,0 +1,123 @@
+
+4. useReducer()
+
+- It uses application memory.
+- Application memory is global memory accessible to all components.
+- Application state is created on application start and destroyed on application end.
+- Application state is not predictable and not easily debuggable.
+- Reducer and Redux libraries are intended to create a predictable and debuggable state. So that it is easy for developers to track the application state.
+- Reducer components are
+
+    a) Store
+    b) State
+    c) UI
+    d) Reducer
+
+- Store is a global location where we keep the data.
+- State is responsible for accessing the store and providing data to UI.
+- UI is the location where global store is used. [rendering, manipulating]
+- Reducer identifies the actions in UI and changes in data. It updates the data into global store.
+
+
+1. Create store, which is initial stateof your application.
+
+    let store | initialState = {
+        key: value,
+        key: value
+    }
+
+
+2. Create a Reducer function for handling interaction betweeen store and component.
+
+    function reducer(state, action){
+        // configure actions
+        if(action.type){
+            // do something;
+        }else{
+            // do something else;
+        }
+    }
+
+
+3. You can use the reducer in any component by using useReducer() hook.
+
+    const [state, dispatch] = useReducer(reducer, initialState);
+
+    dispatch({type: actionName});
+
+4. You can configure an event to dispatch the action and payload. [data]
+
+    function handleClick(){
+        dispatch({type: actionName});
+    }
+
+EX:
+reducer-demo.jsx
+
+import { useReducer } from "react"
+
+
+
+let initialState = {
+    viewersCount:0
+}
+
+function reducer(state, action){
+    switch(action.type)
+    {
+        case "Join":
+        return {viewersCount: state.viewersCount + 1}
+        case "exit":
+        return {viewersCount: state.viewersCount - 1}
+    }
+}
+
+
+export function ReducerDemo(){
+
+
+    const [state, dispatch] = useReducer(reducer, initialState);
+
+    function handleJoinClick(){
+        dispatch({type: 'Join'});
+    }
+
+    function handleExitClick(){
+        dispatch({type: 'exit'});
+    }
+    return(
+        <div className="container-fluid">
+            <h2>Watch Live</h2>
+            <iframe width="500" height="300" src="https://www.youtube.com/embed/4gulVzzh82g" ></iframe>
+            <div className="mt-4">
+                <div className="bi bi-eye">[{state.viewersCount}] Viewing </div>
+            </div>
+            <div className="mt-4 row">
+                <div className="col">
+                    <h3>User 1</h3>
+                    <button onClick={handleJoinClick} className="bi bi-camera-video btn btn-primary"> Join</button>
+                    <button onClick={handleExitClick} className="bi bi-door-open btn btn-danger ms-2"> Exit</button>
+                </div>
+                <div className="col">
+                    <h3>User 2</h3>
+                    <button onClick={handleJoinClick} className="bi bi-camera-video btn btn-primary"> Join</button>
+                    <button onClick={handleExitClick} className="bi bi-door-open btn btn-danger ms-2"> Exit</button>
+                </div>
+            </div>
+        </div>
+    )
+}
+
+
+
+useRef():
+
+- It configures a reference memory.
+- Reference memory is intended to use in application process.
+- You can store data or function in the reference memory.
+- Function and data is used for thread process.
+
+Syntax:
+        const thread = useFer(null);
+
+        thread.current = value | function

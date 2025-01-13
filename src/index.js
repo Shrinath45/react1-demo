@@ -11,6 +11,7 @@ import { StateDemo } from './components/state-demo/state-demo.jsx';
 import { HookDemo } from './components/Hooks/hook-demo.jsx';
 import { Login } from './login.js';
 import { ContextDemo } from './components/context-demo/context-demo.jsx';
+import { ReducerDemo } from './components/Reducer-demo/reducer-demo.jsx';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -19,7 +20,7 @@ root.render(
     {/* <CookiesProvider>
       <StateDemo />
     </CookiesProvider> */}
-    <ContextDemo />
+    <ReducerDemo />
     
   </React.StrictMode>
 );
