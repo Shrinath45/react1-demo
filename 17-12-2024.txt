@@ -1,0 +1,164 @@
+
+                React Built-in Hooks
+
+    
+1. useEffect():
+- It is a hook used to configure actions on component mount and unmount.
+- Typically assigning values, loading data, fetching like activities are configured in mount phase.
+- Actions like unregister and memory cleanup are configured in unmount.
+- A React component unmounts when user requests a new component.
+
+Syntax:
+        useEffect(()=>{
+            //actions on mount
+
+            return()=>{
+                // actions on unmount
+            }
+        }, [dependencies])
+
+- Every component mounts only once per request.
+- If you want to mount again, you have configure the dependencies.
+
+
+EX:
+hook-demo.jsx
+
+import { useEffect, useState } from "react";
+
+
+
+export function UserLogin(){
+    useEffect(()=>{
+        console.log("Login Component Mounted");
+        return()=>{
+            console.log("Login Component Unmounted");
+        }
+    }, [])
+    
+
+    return(
+        <div>
+            <h2>User Login</h2>
+        </div>
+    )
+}
+
+export function UserRegister(){
+    useEffect(()=>{
+        console.log('Register Component Mounted');
+
+        return()=>{
+            console.log('Register Component Unmounted');
+        }
+    },[])
+
+    return(
+        <div>
+            <h2>Register New User</h2>
+        </div>
+    )
+}
+
+export function HookDemo(){
+    const [view, setView]=useState();
+
+    function handleLogin(){
+        setView(<UserLogin/>);
+    }
+
+    function handleRegister(){
+        setView(<UserRegister />);
+    }
+
+    return(
+        <div className="container-fluid">
+            <h2>Shopping Home</h2>
+            <button onClick={handleLogin}>Login</button><button onClick={handleRegister}>Register</button> <hr />
+            <div className="mt-4">
+                {view}
+            </div>
+        </div>
+    )
+}
+
+
+
+FAQ's:
+
+1. What are the actions performed by a component implicitly on mount phase?
+Ans:
+ - It subscribes the events.
+    - Binds the payload using event handler. [data about event & element]
+- It also configures a local state for handling request data.
+
+2. What actions are performed by a component implicitly on unmount phase?
+A.
+- It unsubscribes the events.
+- It discounts the function pointer.
+- It destroys memory allocated for component.
+
+3. How to transport data from one component to another?
+A. React provides various techniques of transporting data
+
+    a) It can use context
+    b) It can use reducer
+    c) It can use route parameters
+
+    If component is a controlled component then using props you can transport data.
+
+
+
+
+
+2. useState():
+- It configures a local state for component.
+- State is accessible only the current component.
+- It is not accessible o child components.
+- It comprises a getter and setter.
+
+Syntax:
+        const [getter, setter] = useState(value);
+
+
+3. useContext():
+
+EX:
+context-demo.jsx
+
+import { createContext, useContext } from "react";
+
+let userContext = createContext(null);
+export function Level1(){
+    let context = useContext(userContext);
+
+    return(
+        <div className="p-4 bg-warning">
+            <h3>Level-1 / {context}</h3>
+            <Level2 />
+        </div>  
+    )
+
+}
+
+export function Level2(){
+    let context = useContext(userContext);
+
+    return(
+        <div className="p-4 bg-danger">
+            <h3>Level-2 / {context}</h3>
+        </div>
+    )
+}
+
+
+export function ContextDemo(){
+    return(
+        <div className="p-4 bg-dark m-4 text-white">
+            <userContext.Provider value={'John'}>
+                <h2>Parent </h2>
+                <Level1 />
+            </userContext.Provider>
+        </div>
+    )
+}
