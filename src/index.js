@@ -12,15 +12,13 @@ import { HookDemo } from './components/Hooks/hook-demo.jsx';
 import { Login } from './login.js';
 import { ContextDemo } from './components/context-demo/context-demo.jsx';
 import { ReducerDemo } from './components/Reducer-demo/reducer-demo.jsx';
+import { Fakestore } from './components/fakestore/fakestore.jsx';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    {/* <CookiesProvider>
-      <StateDemo />
-    </CookiesProvider> */}
-    <ReducerDemo />
+    <Fakestore />
     
   </React.StrictMode>
 );
