@@ -13,13 +13,14 @@ import { Login } from './login.js';
 import { ContextDemo } from './components/context-demo/context-demo.jsx';
 import { ReducerDemo } from './components/Reducer-demo/reducer-demo.jsx';
 import { Fakestore } from './components/fakestore/fakestore.jsx';
+import { DemoComponent } from './components/class-component/demo-component.jsx';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Fakestore />
-    
+
+    <DemoComponent />
   </React.StrictMode>
 );
 

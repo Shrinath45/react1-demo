@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 
 export function Fakestore(){
@@ -11,13 +11,16 @@ export function Fakestore(){
     const [cartItems, setCartItems] = useState([]);
     const [cartCount, setCartCount] = useState(cartItems.length);
 
-    function LoadCategories(){
-        axios.get(`https://fakestoreapi.com/products/categories`)
-        .then(Response =>{
-            Response.data.unshift("all");
-            setCategories(Response.data);
-        })
-    }
+   const LoadCategories = useCallback(async ()=>{
+
+    const Response = axios.get(`https://fakestoreapi.com/products/categories`);
+    (await Response).data.unshift("all");
+    setCategories((await Response).data);
+
+    var now = new Date();
+    console.log(now.toLocaleTimeString());
+
+   }, [])
 
     function LoadProducts(url){
         axios.get(url)
@@ -29,7 +32,7 @@ export function Fakestore(){
     useEffect(()=>{
         LoadCategories();
         LoadProducts('https://fakestoreapi.com/products');
-    }, []);
+    }, [LoadCategories]);
 
     function handleCategoryChange(e){
         if(e.target.value==='all'){

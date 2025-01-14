@@ -1,0 +1,215 @@
+useEffect()
+useState()
+useContext()
+useReducer()
+useRef()
+useMemo()
+useCallback()
+useTransition()
+useId()
+
+
+Making Async Requests:
+
+- JavaScript Provides "async" & "await" to configure async requests.
+- Async uses unblocking technique, it can process your request in background without blocking other requests.
+
+Syntax:
+        async function Name()
+        {
+            const ref = await data_returned_over_request;
+        }
+
+EX:
+
+ function LoadCategories(){
+        axios.get(`https://fakestoreapi.com/products/categories`)
+        .then(async (Response) =>{
+            await Response.data.unshift('all');
+            setCategories(await Response.data);
+        })
+    }
+
+
+Caching the data:
+- React can cache data using useMemo().
+- It can cache function using useCallback().
+- Caching data & function will save round trip.
+
+Syntax:
+
+        const ref = useCallback(()=> ()=> { }, []);
+
+        useCallback(function(){
+            return function(){
+
+            }
+        }, []);
+
+- The dependencies are configured for useCallback in order to fetch from server when ever a value changes on server.
+- Callback function reference is used as dependency on mount phase. [useEffect]
+
+EX:
+const LoadCategories = useCallback(async ()=>{
+
+    const Response = axios.get(`https://fakestoreapi.com/products/categories`);
+    (await Response).data.unshift("all");
+    setCategories((await Response).data);
+
+    var now = new Date();
+    console.log(now.toLocaleTimeString());
+
+   }, [])
+
+    useEffect(()=>{
+        LoadCategories();
+        LoadProducts('https://fakestoreapi.com/products');
+    }, [LoadCategories]);
+
+
+Summary:
+- Function Components
+- Data Binding
+- Class Binding
+- Event Binding
+- Forms & Validations
+- Style Binding
+- Hooks
+
+
+
+
+                        Class Components
+
+JavaScript Topics:[Need to Understand the Class Components]
+
+- Class 
+- Class Members
+- Property
+- Accessor
+- Methods
+- Constructor
+- Inheritance & Aggregation
+- Inheritance rules
+- Polymorphism
+- Static Members
+- Private Members
+- Weakmap
+
+
+1. A class component can be configured using declaration or expression.
+
+    class ComponentName{    => Declaration
+
+    }
+
+    const ComponentName = class{    => Expression
+
+    }
+
+2. In a Module system it is mandatory to mark as "export.
+
+3. Class gets component behavior by extending the base classes
+
+    a) React.Component
+    b) React.PureComponent
+
+    - Component base loads complete component for every change.
+    - PureComponent loads only the changes, without reloading complete component.
+
+    Syntax:
+            export class Register extends React.Component | React.PureComponent
+            {
+
+            }
+
+4. Component Class must have a constructor that calls super constructor.
+
+    Syntax:
+            export class Register extends React.Component
+            {
+                constructor(){
+                    super();
+                }
+            }
+
+5. Class uses "render()"method of base that returns JSX.
+
+Syntax:
+        export class Register extends React.Component
+        {
+            constructor(){
+                super();
+            }
+
+            render(){
+                return(
+                    <div>
+                        JSX
+                    </div>
+                )
+            }
+        }
+
+
+State in Class Component:
+- Class is stateful.
+- It comprises of built-in state.
+- You can configure state while creating component object.
+- State is configured using "this.state".
+- It is object type with key-value reference.
+
+Syntax:
+        constructor(){
+        super();
+        this.state = {
+            key: value
+        }
+    }
+
+    <p> { this.state.key } </p>
+
+- Class Component provides "this.setState()" method to assign new values into state.
+
+
+Mount Phase in Class:
+- Class Component provides life cycle hook methods for handling various states.
+
+    a) componentWillMount()
+    b) componentDidMount()
+    c) componentWillUpdate()
+    d) componentWillUnmount()
+
+
+EX:
+demo-component.jsx
+
+import React from "react";
+
+export class DemoComponent extends React.PureComponent
+{
+    constructor(){
+        super();
+        this.state = {
+            categories : ["All", "Electronics", "Fashion"],
+            title: "Categories List"
+        }
+    }
+
+    componentDidMount(){
+        this.setState({title: "Select a Category"});
+    }
+
+    render(){
+        return(
+            <div className="container-fluid">
+                <h2>{this.state.title}</h2>
+                <select>
+                    {
+                        this.state.categories.map(category=><option key={category}>{category}</option>)
+                    }
+                </select>
+            </div>
+        )
+    }
+}
