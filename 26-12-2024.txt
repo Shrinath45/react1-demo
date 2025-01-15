@@ -1,3 +1,31 @@
+Class Components
+- State in Class
+- Mount in Class
+- Event Binding in Class
+- Style & Class Binding
+- API Connections [Axios, Fetch, XMLHttpRequest]
+
+
+
+
+                    Forms in Class Components
+
+- You can't use any 3rd party library that requires hooks to handle forms.
+- Hooks are not allowed in class Components.
+- You can use a 3rd party library that provides built-in Components for handling form.
+- You can use Formik Components like
+
+    <Formik>
+    <Form>
+    <Field>
+    <ErrorMessage>
+
+- You can implement schema validation using "Yup".
+- You can write custom validation using methods.
+
+EX:
+demo-component.jsx
+
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as yup from "yup";
@@ -51,3 +79,8 @@ export class DemoComponent extends React.PureComponent
         )
     }
 }
+
+
+                    Life Cycle Hook Methods
+
+- 
