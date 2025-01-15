@@ -1,0 +1,223 @@
+- Class Components
+- Component Base
+    a) Component
+    b) PureComponent
+- render() return JSX
+- Stateful 
+    this.state = { }
+    this.setState()
+- componentDidMount()
+- Style & Class Binding are same
+
+EX:
+demo-component.jsx
+
+import React from "react";
+
+export class DemoComponent extends React.PureComponent
+{
+    constructor(){
+        super();
+        this.state = {
+            categories : ["All", "Electronics", "Fashion"],
+            title: "Categories List",
+            styleobj: {border: '2px double red', textAlign: 'center', padding: '20px'},
+            theme: 'bg-danger text-white'
+        }
+    }
+
+    componentDidMount(){
+        this.setState({title: "Select a Category", theme: 'bg-primary text-white'});
+    }
+
+    render(){
+        return(
+            <div className="container-fluid">
+                <h2 className={this.state.theme} style={this.state.styleobj}>{this.state.title}</h2>
+                <select>
+                    {
+                        this.state.categories.map(category=><option key={category}>{category}</option>)
+                    }
+                </select>
+            </div>
+        )
+    }
+}
+
+
+
+                        Event Binding in Class Component
+                    
+
+- Event in class uses a method as subscriber.
+
+Syntax:
+        class Demo extends React.Component{
+            // constructor & state
+
+            handleClick(){
+
+            }
+
+            render(){
+                return(
+                    <button onClick={this.handleClick}>Click</button>
+                )
+            }
+        }
+
+- All events of React are derived from "Synthetic Events" base.
+- Event handler points towards a method in class.
+- Method configured for event can use all DOM interactions, but can't use the state.
+- The memory of state is disconnected from the memory of method.
+- You have to bind the methods with state memory.
+- There are various techniques of Binding Events with state
+
+    1. Inside constructor you can configure event handler with bind() method.
+
+    Syntax:
+            constructor()
+            {
+                super();
+                this.state  = {}
+                this.handleClick = this.handleClick.bind(this);
+                this.handleChange = this.handleChange.bind(this);
+            }
+
+    EX:
+    demo-component.jsx
+
+    import React from "react";
+
+    export class DemoComponent extends React.PureComponent
+    {
+        constructor(){
+            super();
+            this.state = {
+                msg: ""
+            }
+            this.handleInsertClick = this.handleInsertClick.bind(this);
+            this.handleDeleteClick = this.handleDeleteClick.bind(this);
+        }
+
+        handleInsertClick(){
+            this.setState({msg: "Record Inserted Successfully"});
+        }
+        handleDeleteClick(){
+            this.setState({msg: "Record Deleted"});
+        }
+
+        componentDidMount(){
+            this.setState({title: "Select a Category", theme: 'bg-primary text-white'});
+        }
+
+        render(){
+            return(
+                <div className="container-fluid">
+                    <button onClick={this.handleInsertClick} className="btn btn-primary">Insert</button>
+                    <button onClick={this.handleDeleteClick} className="btn btn-danger ms-2">Delete</button>
+                    <p>{this.state.msg}</p>
+                </div>
+            )
+        }
+    }
+
+    
+    2. You can configure bind() method directly in event handler which uses JIT.[Just In Time]
+
+    Syntax:
+            <button onClick={this.handleClick.bind(this)}> Insert </button>
+
+    EX:
+    demo-component.jsx
+
+    import React from "react";
+
+    export class DemoComponent extends React.PureComponent
+    {
+        constructor(){
+            super();
+            this.state = {
+                msg: ""
+            }
+        }
+
+        handleInsertClick(){
+            this.setState({msg: "Record Inserted Successfully"});
+        }
+        handleDeleteClick(){
+            this.setState({msg: "Record Deleted"});
+        }
+
+        componentDidMount(){
+            this.setState({title: "Select a Category", theme: 'bg-primary text-white'});
+        }
+
+        render(){
+            return(
+                <div className="container-fluid">
+                    <button onClick={this.handleInsertClick.bind(this)} className="btn btn-primary">Insert</button>
+                    <button onClick={this.handleDeleteClick.bind(this)} className="btn btn-danger ms-2">Delete</button>
+                    <p>{this.state.msg}</p>
+                </div>
+            )
+        }
+    }
+
+
+    3. You can configure event handler with memory that will return and use state memory, which is a continuous memory. It doesn't require "bind()" method.
+
+    Syntax: 
+            <button onClick={() => this.handleClick()}> Click </button>
+
+    EX:
+    demo-component.jsx
+
+    import React from "react";
+
+    export class DemoComponent extends React.PureComponent
+    {
+        constructor(){
+            super();
+            this.state = {
+                msg: ""
+            }
+        }
+
+        handleInsertClick(){
+            this.setState({msg: "Record Inserted Successfully"});
+        }
+        handleDeleteClick(){
+            this.setState({msg: "Record Deleted"});
+        }
+
+        componentDidMount(){
+            this.setState({title: "Select a Category", theme: 'bg-primary text-white'});
+        }
+
+        render(){
+            return(
+                <div className="container-fluid">
+                    <button onClick={() => this.handleInsertClick()} className="btn btn-primary">Insert</button>
+                    <button onClick={() => this.handleDeleteClick()} className="btn btn-danger ms-2">Delete</button>
+                    <p>{this.state.msg}</p>
+                </div>
+            )
+        }
+    }
+
+
+
+
+- Event Arguments are same as in function component.
+
+    Syntax:     
+            handleInsertClick(e)
+            {
+                e.clietX, e.clietY, e.which, e.KeyCode...
+                e.target.value, e.target.className, e.target.id...
+            }
+
+FAQ: Why you don't need bind() method in function component?
+ANS: Function Uses closure where the memory of outer is accessible to inner.
+

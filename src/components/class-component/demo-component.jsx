@@ -5,24 +5,28 @@ export class DemoComponent extends React.PureComponent
     constructor(){
         super();
         this.state = {
-            categories : ["All", "Electronics", "Fashion"],
-            title: "Categories List"
+            msg: ""
         }
+        
+    }
+
+    handleInsertClick(){
+        this.setState({msg: "Record Inserted Successfully"});
+    }
+    handleDeleteClick(){
+        this.setState({msg: "Record Deleted"});
     }
 
     componentDidMount(){
-        this.setState({title: "Select a Category"});
+        this.setState({title: "Select a Category", theme: 'bg-primary text-white'});
     }
 
     render(){
         return(
             <div className="container-fluid">
-                <h2>{this.state.title}</h2>
-                <select>
-                    {
-                        this.state.categories.map(category=><option key={category}>{category}</option>)
-                    }
-                </select>
+                <button onClick={() => this.handleInsertClick()} className="btn btn-primary">Insert</button>
+                <button onClick={() => this.handleDeleteClick()} className="btn btn-danger ms-2">Delete</button>
+                <p>{this.state.msg}</p>
             </div>
         )
     }
