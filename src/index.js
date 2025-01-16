@@ -6,21 +6,17 @@ import reportWebVitals from './reportWebVitals';
 import '../node_modules/bootstrap/dist/css/bootstrap.css';
 import '../node_modules/bootstrap-icons/font/bootstrap-icons.css';
 import '../node_modules/bootstrap/dist/js/bootstrap.bundle.js';
-import { CookiesProvider } from 'react-cookie';
-import { StateDemo } from './components/state-demo/state-demo.jsx';
-import { HookDemo } from './components/Hooks/hook-demo.jsx';
-import { Login } from './login.js';
-import { ContextDemo } from './components/context-demo/context-demo.jsx';
-import { ReducerDemo } from './components/Reducer-demo/reducer-demo.jsx';
-import { Fakestore } from './components/fakestore/fakestore.jsx';
-import { DemoComponent } from './components/class-component/demo-component.jsx';
-
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { MuiDemo } from './components/mui-demo/mui-demo.jsx';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
 
-    <DemoComponent />
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <MuiDemo />
+    </LocalizationProvider>
   </React.StrictMode>
 );
 

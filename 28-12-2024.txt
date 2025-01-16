@@ -1,0 +1,140 @@
+SetUp MUI Core: [ v6x ]
+- New MUI is a complete re-write from previous versions.
+- It uses "emotion" library.
+
+    > npm install @mui/material @emotion/react @emotion/styled
+
+Syntax: TextField, Button
+
+    import { TextField, Button } from "@mui/material";
+
+    <TextField variant="standard | outlined | filled" label="caption" />
+    <Button variant="contained" color="warning"> Text </Button>
+
+
+EX:
+
+mui-demo.jsx
+
+import { Button, TextField } from '@mui/material';
+import { useState } from 'react';
+
+
+export function MuiDemo(){
+
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+
+    function handleNameChange(e){
+        setUsername(e.target.value);
+    }
+
+    function handlePasswordChange(e){
+        setPassword(e.target.value);
+    }
+
+    function handleLoginClick(){
+        alert(`Username: ${username} \n Password:  ${password}`);
+    }
+
+    return(
+        <div className="container-fluid">
+            <div className="row">
+                <div className="col">
+                    <h3>Bootstrap Form</h3>
+                    <div className="w-50">
+                        <div className="my-2">
+                        <label className="form-label">User Name</label>
+                        <div>
+                            <input type="text" className="form-control" />
+                        </div>
+                        </div>
+                        <div className="my-2">
+                            <label className="form-label">Password</label>
+                            <div>
+                                <input type="password" className="form-control" />
+                            </div>
+
+                        </div>
+                        <div>
+                            <button className="btn btn-warning w-100">Login</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="col">
+                    <h3>MUI Form</h3>
+                    <div className="w-50">
+                        <div className='mt-3'>
+                            <TextField onChange={handleNameChange} variant="standard" label="Username" />
+                        </div>  
+
+                        <div className='mt-3'>
+                        <TextField onChange={handlePasswordChange} variant="standard" label="Password" />
+                        </div>  
+
+                        <div className='mt-4'>
+                            <Button onClick={handleLoginClick} variant="contained" color="warning">Login</Button>
+                        </div>                 
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    )
+}
+
+
+
+
+EX: MUI-X Date Picker
+
+1. Install MUI X library required for date picker.
+
+    > npm install @mui/x-date-pickers
+
+2. Date & Time in react requires a 3rd party support like dayjs, luxon, date-fns, moment
+
+    > npm install dayjs
+        (or)
+    > npm install moment
+
+3. Setup date adapter globally for all components
+
+        index.js
+
+    import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+    import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
+
+        ... your components that use date pickers ...
+
+    </LocalizationProvider>
+
+
+EX:
+
+mui-demo.jsx
+
+import { DatePicker } from '@mui/x-date-pickers';
+
+export function MuiDemo(){
+
+    
+
+    return(
+        <div className="container-fluid">
+            <h2>Departure</h2>
+            <DatePicker />
+        </div>
+    )
+}
+
+
+
+
+
+
+
+
