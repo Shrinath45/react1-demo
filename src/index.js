@@ -9,13 +9,14 @@ import '../node_modules/bootstrap/dist/js/bootstrap.bundle.js';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { MuiDemo } from './components/mui-demo/mui-demo.jsx';
+import { FakestoreIndex } from './components/fakestore/fakestore-index.jsx';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
 
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <App />
+      <FakestoreIndex />
     </LocalizationProvider>
   </React.StrictMode>
 );

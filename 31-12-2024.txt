@@ -1,0 +1,208 @@
+Routing
+- Client Side 
+- Browser Router V7
+- <BrowserRouter>
+- <Routes>
+- <Route>
+- <Link>
+- <Outlet>
+- Wild Card Routes
+
+
+FAQ: What is absolute path & relative path?
+ANS: Absolute path refers to a new path that replaces existing
+    <Link to="/path" />
+
+    Relative path adds to the existing parent.
+    <Link to="path" />
+
+
+
+Route Parameters:
+
+- A Route Parameters allows to query any content inside route.
+- You can transport data from one component to another using route Parameters.
+
+1. Parameters are configured for route path using "/:"
+
+    <Route path="details/:id/:price" element={} />
+
+2. Parameters are passed from address bar
+
+    details/1/56000
+
+3. React can access route Parameters by using "useParams()" hook of react-router-dom.
+
+    let params = useParams();
+    params = { }
+
+
+EX:
+1. Add a new folder "fakestore"
+
+2. Add components
+
+    fakestore-index.jsx
+    fakestore-home.jsx
+    fakestore-product.jsx
+    fakestore-product-details.jsx
+
+3. Add Routes configuration in 
+    fakestore-index.jsx
+
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { FakestoreHome } from "./fakestore-home";
+import { FakestoreProduct } from "./fakestore-product";
+import { FakestoreProductDetails } from "./fakestore-product-details";
+
+
+
+export function FakestoreIndex(){
+    return(
+        <div className="container-fluid">
+            <BrowserRouter>
+                <header className="d-flex justify-content-between border border-2 p-2 ">
+                    <div className="fs-4 fw-bold">Fashion</div>
+                    <div>
+                        <nav>
+                            <span className="mx-4">Home</span>
+                            <span className="mx-4">Electronics</span>
+                            <span className="mx-4">Jewelery</span>
+                        </nav>
+                    </div>
+                </header>
+
+                <section className="mt-4">
+                    <Routes>
+                        <Route path="/" element={<FakestoreHome /> }  />
+                        <Route path="products/:category" element={<FakestoreProduct /> }  />
+                        <Route path="details/:id" element={<FakestoreProductDetails /> }  />
+                    </Routes>
+
+                </section>
+            </BrowserRouter>
+        </div>
+    )
+}
+
+
+fakestore-home.jsx
+
+import axios from "axios";
+import { useEffect, useState } from "react"
+import { Link } from "react-router-dom";
+
+
+
+export function FakestoreHome(){
+
+    const [categories, setCategories] = useState([]);
+    useEffect(() =>{
+        axios.get(`https://fakestoreapi.com/products/categories`)
+        .then(Response =>{
+            setCategories(Response.data);
+        })
+    }, [])
+
+
+    return(
+        <div>
+            <h5>Fakestore Home</h5>
+            <ul className="list-unstyled">
+                {
+                    categories.map(category=> 
+                        <li key={category} className="bg-dark text-white p-2 my-3 w-25"> <Link className="btn btn-dark w-100" to={`/products/${category}`}>{category.toUpperCase()} </Link> </li>
+                        )
+                }
+            </ul>
+        </div>
+    )
+}
+
+fakestore-product.jsx
+
+
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom"
+
+export function FakestoreProduct(){
+
+    let [products, setProducts] = useState([{id:0, title:'', price:'', category:'', image:'', rating:{rate:0, count:0}}]);
+    let params = useParams();
+
+    useEffect(()=>{
+        axios.get(`https://fakestoreapi.com/products/category/${params.category}`)
+        .then(Response =>{
+            setProducts(Response.data);
+        })
+    }, [])
+
+    return(
+        <div>
+            <h3>{params.category.toUpperCase()} PRODUCTS</h3>
+            <main className="d-flex flex-wrap ">
+                {
+                    products.map(product=>
+                        <div className="card m-2 p-2" style={{width:'200px'}}>
+                            <Link to={`/details/${product.id}`}>
+                            <img src={product.image} height="100" className="card-img-top" alt="" />
+                            </Link>
+                        </div>
+                    )
+                }
+            </main>
+            <Link to="/"> back To categories</Link>
+        </div>
+    )
+}
+
+
+fakestore-product-details.jsx
+
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
+
+
+export function FakestoreProductDetails(){
+
+        const [product, setProduct] = useState({id:0, title:'', price:'', category:'', image:'', rating:{rate:0, count:0}});
+        let params = useParams();
+
+        useEffect(()=>{
+            axios.get(`https://fakestoreapi.com/products/${params.id}`)
+            .then(Response=>{
+                setProduct(Response.data);
+            })
+        },[])
+    
+
+    return(
+        <div>
+            <h5>Details</h5>
+            <dl>
+                <img src={product.image} height='300' width='300' alt="" />
+                <dt>Title</dt>
+                <dd>{product.title}</dd>
+                <dt>Price</dt>
+                <dd>{product.price}</dd>
+                <dt>Rating</dt>
+                <dd>
+                    <span className="badge bg-success text-white"> {product.rating.rate} <span className="bi bi-star-fill"></span></span> [{product.rating.count}]
+                </dd>
+            </dl>
+            <Link to={`/products/${product.category}`}>Back To Products</Link>
+        </div>
+    )
+}
+
+
+4. Set Fakestore-Index in startup
+
+index.jsx
+
+<FakestoreIndex />
+
+

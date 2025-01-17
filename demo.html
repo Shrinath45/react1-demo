@@ -1,11 +1,20 @@
-<script>
-    function f1(){
-        document.write("Statement-1 <br>");
-        document.write("Statement-2 <br>");
-        document.write("Statement-3 <br>");
-        return;
-        document.write("Statement-4 <br>");
-        document.write("Statement-5 <br>");
-    }
-    f1();
-</script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function bodyLoad(){
+            var querystring = location.search;
+            var params = new URLSearchParams(querystring);
+            for(var key in params.key){
+                console.log(key);
+            }
+        }
+    </script>
+</head>
+<body onload="bodyLoad()">
+    
+</body>
+</html>
