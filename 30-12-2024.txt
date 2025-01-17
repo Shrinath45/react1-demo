@@ -1,0 +1,112 @@
+
+                Routing 
+
+
+- Routing is a technique implemented in web applications to configure user and SEO friendly URL's.
+- User friendly URL allows to query any content directly from address bar.
+- SEO friendly URL allows crawlers to identify the exact location in a page.
+- It implicitly uses AJAX that allows to load new content without reloading the page.
+- It is the navigation technique used for SPA. [Single Page Application]
+- Routing can be configured:
+    a) Client Side
+    b) Server Side
+
+- React is using client side routing.
+- React uses "react-router-dom" library for client side routes.
+- The react router versions popular among developers:
+    a) V5   [ up to React 17 ]
+    b) V6   [ from React 18 ]
+    c) V7   [ for React 18 & 19 ]
+
+
+1. Install Router Library
+
+    > npm install react-router-dom --save       [ latest ]
+    > npm install react-router-dom@6.28.1 --save
+
+    [ https://reactrouter.com/ ]  // Official Website
+
+2. Router library provides following components
+
+    <BrowserRouter>     : It transforms the virtual routes into actual DOM route.
+    <Routes>            : It configures a route table. [ collection of routes ]
+    <Route>             : It configures individual route in a table.
+    <Link>              : It create an anchor for navigation in virtual DOM.
+    <Outlet>            : It specifies the target location to render child routes.
+
+Syntax:
+        <BrowserRouter>
+
+            <Routes>
+
+                <Route path=" " element={ } />
+
+            </Routes>
+
+        </BrowserRouter>
+    
+Route Attributes:
+
+    a) path     : It refers to the request path.
+                The client request is handled by using path.
+    
+    b) elements  : It refers to the markup or component to load when request status code is 200. [ OK ]
+                   
+
+
+Syntax:
+        <Route path="home" element={<h2> Home </h2>} />
+        <Route path="home" element={ <Home/> } />
+
+
+Wild Card Routes:
+
+    <Route path="/" element={} />  It renders the element when the request is not any specific.
+
+    <Route path="*" element={} />   It render element when request not found.
+
+
+
+EX:
+
+app.js
+
+import logo from './logo.svg';
+import './App.css';
+import { Login } from './login';
+import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
+
+function App() {
+  return (
+    <div className='container-fluid'>
+       <BrowserRouter>
+          <header className='bg-light p-3 mt-3 mb-4 border border-1 border-secondary'>
+              <nav className='d-flex justify-content-between'>
+                 <div className='fs-5 fw-bold'>Shopper.</div>
+                 <div>
+                  <span className='mx-2'> <Link to="/">Home</Link> </span>
+                  <span className='mx-2'> <Link to="kids"> Kids Fashion</Link> </span>
+                  <span className='mx-2'> <Link to="women"> Women Fashion </Link> </span>
+                  <span className='mx-2'> <Link to="men">Men Fashion </Link> </span>
+                </div>
+                <div>
+                   <Link className='bi bi-person-fill' to="login"> Signin </Link>
+                </div>
+              </nav>
+          </header>
+          <section>
+              <Routes>
+                  <Route path='/' element={<div><h2>Shopper Home</h2><p>Offers on Men, Women and Kids fashion</p></div>} />
+                  <Route path='men' element={<div><h3>Men's Fashion</h3> <img src="men-fashion.jpg" width="200" height="200" alt=''/> </div>} />
+                  <Route path='women' element={<div><h3>Women Fashion</h3> <img src="women-shop.jpg" width="200" height="200" alt=''/> </div>} />
+                  <Route path='kids' element={<div><h3>Kids's Fashion</h3> <img src="kids-fashion.jpg" width="200" height="200" alt=''/> </div>} />
+                  <Route path='login' element={<Login />} />
+                  <Route path='*' element={<div><h4 className='text-danger'>Not Found</h4><p>Requested category not found</p></div>} />
+              </Routes>
+          </section>
+       </BrowserRouter>
+    </div>
+  );
+}
+
+export default App;

@@ -15,7 +15,7 @@ root.render(
   <React.StrictMode>
 
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <MuiDemo />
+      <App />
     </LocalizationProvider>
   </React.StrictMode>
 );
