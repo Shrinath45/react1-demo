@@ -14,7 +14,7 @@ export function FakestoreProductDetails(){
             .then(Response=>{
                 setProduct(Response.data);
             })
-        },[])
+        },[params.id])
     
 
     return(

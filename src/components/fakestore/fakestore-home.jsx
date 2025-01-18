@@ -1,23 +1,38 @@
 import axios from "axios";
 import { useEffect, useState } from "react"
-import { Link } from "react-router-dom";
+import { useCookies } from "react-cookie";
+import { Link, useNavigate } from "react-router-dom";
 
 
 
 export function FakestoreHome(){
 
     const [categories, setCategories] = useState([]);
+    const [cookies, setCookie, removeCookie] = useCookies(['username']);
+    const navigate = useNavigate();
+
     useEffect(() =>{
-        axios.get(`https://fakestoreapi.com/products/categories`)
-        .then(Response =>{
-            setCategories(Response.data);
-        })
+
+
+        if(cookies['username']){
+            axios.get(`https://fakestoreapi.com/products/categories`)
+            .then(Response =>{
+                setCategories(Response.data);
+            })
+        }else{
+            navigate('/');
+        }       
     }, [])
+
+    function handleSignout(){
+        removeCookie('username');
+        navigate("/");
+    }
 
 
     return(
         <div>
-            <h5>Fakestore Home</h5>
+            <h5 className="d-flex justify-content-between"><span>Fakestore Home</span><span>{cookies['username']}</span><span><button onClick={handleSignout} className="btn btn-warning">Signout</button></span></h5>
             <ul className="list-unstyled">
                 {
                     categories.map(category=> 

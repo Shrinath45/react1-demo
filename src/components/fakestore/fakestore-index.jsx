@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { FakestoreHome } from "./fakestore-home";
 import { FakestoreProduct } from "./fakestore-product";
 import { FakestoreProductDetails } from "./fakestore-product-details";
+import { FakestoreLogin } from "./fakestore-login";
 
 
 
@@ -22,9 +23,12 @@ export function FakestoreIndex(){
 
                 <section className="mt-4">
                     <Routes>
-                        <Route path="/" element={<FakestoreHome /> }  />
-                        <Route path="products/:category" element={<FakestoreProduct /> }  />
-                        <Route path="details/:id" element={<FakestoreProductDetails /> }  />
+                        <Route path="/" element={<FakestoreLogin /> }  />
+                        <Route path="home" element={<FakestoreHome /> }  />
+                        <Route path="products/:category" element={<FakestoreProduct /> }>
+                            <Route path="details/:id" element={<FakestoreProductDetails /> } />
+                        </Route>
+                        
                     </Routes>
 
                 </section>

@@ -1,0 +1,137 @@
+Child Routes:
+
+- You can configure relative routes for a parent.
+- Parent route can be defined with "children".
+
+Syntax:
+        <Route path="parent" element={ <ParentElement />}>
+            
+            <Route path="child" element={ <ChildElement />} />
+        
+        </Route>
+
+- You have to configure an <Outlet /> to set target location inside parent, where you want to render the child component.
+
+
+FAQ: Can we define multiple route outlets in a component?
+Ans: In React it is possible to set multiple route outlets.
+
+EX:
+
+1. fakestore-index.jsx
+
+    <Routes>
+        <Route path="/" element={<FakestoreHome /> }  />                <Route path="products/:category" element={<FakestoreProduct /> }>
+             <Route path="details/:id" element={<FakestoreProductDetails /> } />
+        </Route>
+    </Routes>
+
+2. fakestore-product.jsx
+
+
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { Link, useParams, Outlet } from "react-router-dom"
+
+export function FakestoreProduct(){
+
+    let [products, setProducts] = useState([{id:0, title:'', price:'', category:'', image:'', rating:{rate:0, count:0}}]);
+    let params = useParams();
+
+    useEffect(()=>{
+        axios.get(`https://fakestoreapi.com/products/category/${params.category}`)
+        .then(Response =>{
+            setProducts(Response.data);
+        })
+    }, [])
+
+    return(
+        <div>
+            <h3>{params.category.toUpperCase()} PRODUCTS</h3>
+            <div className="row">
+                <div className="col-6">
+                    <main className="d-flex flex-wrap ">
+                        {
+                            products.map(product=>
+                                <div className="card m-2 p-2" style={{width:'200px'}}>
+                                    <Link to={`details/${product.id}`}>
+                                    <img src={product.image} height="100" className="card-img-top" alt="" />
+                                    </Link>
+                                </div>
+                            )
+                        }
+                    </main>
+                </div>
+
+                <div className="col-6">
+                    <Outlet />
+                </div>
+
+            </div>
+            <Link to="/"> back To categories</Link>
+        </div>
+    )
+}
+
+3. fakestore-product-detail.jsx
+
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
+
+
+export function FakestoreProductDetails(){
+
+        const [product, setProduct] = useState({id:0, title:'', price:'', category:'', image:'', rating:{rate:0, count:0}});
+        let params = useParams();
+
+        useEffect(()=>{
+            axios.get(`https://fakestoreapi.com/products/${params.id}`)
+            .then(Response=>{
+                setProduct(Response.data);
+            })
+        },[params.id])
+    
+
+    return(
+        <div>
+            <h5>Details</h5>
+            <dl>
+                <img src={product.image} height='300' width='300' alt="" />
+                <dt>Title</dt>
+                <dd>{product.title}</dd>
+                <dt>Price</dt>
+                <dd>{product.price}</dd>
+                <dt>Rating</dt>
+                <dd>
+                    <span className="badge bg-success text-white"> {product.rating.rate} <span className="bi bi-star-fill"></span></span> [{product.rating.count}]
+                </dd>
+            </dl>
+            <Link to={`/products/${product.category}`}>Back To Products</Link>
+        </div>
+    )
+}
+
+
+FAQ: How to navigate dynamically in react-routes?
+Ans: React Router DOM V6+ uses the hook "useNavigate()" for dynamic navigation.
+     React earlier versions use "useHistory()" hook for dynamic navigation.
+
+Syntax:
+        let navigate = useNavigate();
+
+        navigate("/path);
+
+
+
+
+Authenticating Routes:
+- Every user is authorized to access the route path.
+- You can enable authorization by using various state management techniques.
+- State will authenticate the user and provides authorization.
+
+Note: Authorization is the process of preventing access to resources.
+      Authorization is the process of verifying user credentials.
+
+
